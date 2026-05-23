@@ -41,15 +41,15 @@ export default async function ContatosPage({
     <div className="p-8 max-w-6xl">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <p className="text-[10px] font-semibold uppercase mb-1" style={{ color: '#4A4B6A', letterSpacing: '0.14em' }}>
+          <p className="text-[10px] font-semibold uppercase mb-1" style={{ color: '#AAAAAA', letterSpacing: '0.14em' }}>
             Gestão
           </p>
-          <h1 className="text-2xl font-semibold tracking-tight" style={{ color: '#E8E9F4' }}>Contatos</h1>
+          <h1 className="text-2xl font-semibold tracking-tight" style={{ color: '#1A1A18' }}>Contatos</h1>
         </div>
         <Link href="/contatos/novo">
           <button
-            className="flex items-center gap-2 h-9 px-4 rounded-lg text-sm font-medium transition-all"
-            style={{ background: 'linear-gradient(135deg, #5B21B6, #7C3AED)', color: '#fff' }}
+            className="flex items-center gap-2 h-9 px-4 rounded-lg text-sm font-medium transition-all hover:opacity-80"
+            style={{ backgroundColor: '#1A1A18', color: '#FFFFFF' }}
           >
             <Plus size={14} />
             Novo contato
@@ -63,15 +63,15 @@ export default async function ContatosPage({
 
       <div
         className="overflow-hidden"
-        style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E', borderRadius: '10px' }}
+        style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E5E8', borderRadius: '10px' }}
       >
         {filtered.length === 0 ? (
           <div className="p-12 text-center">
-            <p className="text-sm" style={{ color: '#5A5C7E' }}>Nenhum contato encontrado.</p>
+            <p className="text-sm" style={{ color: '#AAAAAA' }}>Nenhum contato encontrado.</p>
             <Link
               href="/contatos/novo"
               className="mt-3 inline-block text-sm underline underline-offset-2"
-              style={{ color: '#8B5CF6' }}
+              style={{ color: '#1A1A18' }}
             >
               Adicionar primeiro contato
             </Link>
@@ -79,45 +79,45 @@ export default async function ContatosPage({
         ) : (
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: '1px solid #1E1F2E', backgroundColor: '#0D0E16' }}>
-                <th className="text-left px-5 py-3 text-[10px] font-semibold uppercase tracking-wider" style={{ color: '#4A4B6A' }}>Nome</th>
-                <th className="text-left px-5 py-3 text-[10px] font-semibold uppercase tracking-wider" style={{ color: '#4A4B6A' }}>Serviço</th>
-                <th className="text-left px-5 py-3 text-[10px] font-semibold uppercase tracking-wider" style={{ color: '#4A4B6A' }}>Status</th>
-                <th className="text-left px-5 py-3 text-[10px] font-semibold uppercase tracking-wider" style={{ color: '#4A4B6A' }}>Último contato</th>
-                <th className="text-left px-5 py-3 text-[10px] font-semibold uppercase tracking-wider" style={{ color: '#4A4B6A' }}>Cadastro</th>
+              <tr style={{ borderBottom: '1px solid #E5E5E8', backgroundColor: '#FAFAFA' }}>
+                <th className="text-left px-5 py-3 text-[10px] font-semibold uppercase tracking-wider" style={{ color: '#AAAAAA' }}>Nome</th>
+                <th className="text-left px-5 py-3 text-[10px] font-semibold uppercase tracking-wider" style={{ color: '#AAAAAA' }}>Serviço</th>
+                <th className="text-left px-5 py-3 text-[10px] font-semibold uppercase tracking-wider" style={{ color: '#AAAAAA' }}>Status</th>
+                <th className="text-left px-5 py-3 text-[10px] font-semibold uppercase tracking-wider" style={{ color: '#AAAAAA' }}>Último contato</th>
+                <th className="text-left px-5 py-3 text-[10px] font-semibold uppercase tracking-wider" style={{ color: '#AAAAAA' }}>Cadastro</th>
               </tr>
             </thead>
             <tbody>
               {filtered.map((contact) => (
                 <tr
                   key={contact.id}
-                  className="transition-colors hover:bg-white/[0.02]"
-                  style={{ borderBottom: '1px solid #181926' }}
+                  className="transition-colors hover:bg-[#FAFAFA]"
+                  style={{ borderBottom: '1px solid #F5F5F5' }}
                 >
                   <td className="px-5 py-3.5">
                     <Link
                       href={`/contatos/${contact.id}`}
                       className="font-medium text-sm hover:underline underline-offset-2"
-                      style={{ color: '#E8E9F4' }}
+                      style={{ color: '#1A1A18' }}
                     >
                       {contact.name}
                     </Link>
                     {contact.phone && (
-                      <p className="text-xs mt-0.5" style={{ color: '#5A5C7E' }}>{contact.phone}</p>
+                      <p className="text-xs mt-0.5" style={{ color: '#AAAAAA' }}>{contact.phone}</p>
                     )}
                   </td>
-                  <td className="px-5 py-3.5 text-sm" style={{ color: '#7273A0' }}>
+                  <td className="px-5 py-3.5 text-sm" style={{ color: '#888888' }}>
                     {contact.service ? SERVICE_LABELS[contact.service] : '—'}
                   </td>
                   <td className="px-5 py-3.5">
                     <StatusBadge status={contact.status} />
                   </td>
-                  <td className="px-5 py-3.5 text-sm" style={{ color: '#5A5C7E' }}>
+                  <td className="px-5 py-3.5 text-sm" style={{ color: '#AAAAAA' }}>
                     {contact.last_contact_at
                       ? formatDistanceToNow(new Date(contact.last_contact_at), { addSuffix: true, locale: ptBR })
                       : '—'}
                   </td>
-                  <td className="px-5 py-3.5 text-sm" style={{ color: '#5A5C7E' }}>
+                  <td className="px-5 py-3.5 text-sm" style={{ color: '#AAAAAA' }}>
                     {formatDistanceToNow(new Date(contact.created_at), { addSuffix: true, locale: ptBR })}
                   </td>
                 </tr>

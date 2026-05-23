@@ -11,11 +11,11 @@ import { ArrowLeft } from 'lucide-react'
 const STATUSES = Object.entries(STATUS_LABELS) as [LeadStatus, string][]
 const SERVICES = Object.entries(SERVICE_LABELS) as [ServiceType, string][]
 
-const inputStyle = {
+const inputStyle: React.CSSProperties = {
   width: '100%',
-  backgroundColor: 'rgba(255,255,255,0.03)',
-  border: '1px solid #1E1F2E',
-  color: '#E8E9F4',
+  backgroundColor: '#FFFFFF',
+  border: '1px solid #E5E5E8',
+  color: '#1A1A18',
   borderRadius: '8px',
   height: '36px',
   padding: '0 12px',
@@ -67,107 +67,107 @@ export default function NovoContatoPage() {
     router.refresh()
   }
 
-  const focusStyle = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    e.target.style.borderColor = 'rgba(91,33,182,0.5)'
+  const onFocus = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    e.target.style.borderColor = '#1A1A18'
     e.target.style.outline = 'none'
   }
-  const blurStyle = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    e.target.style.borderColor = '#1E1F2E'
+  const onBlur = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    e.target.style.borderColor = '#E5E5E8'
   }
 
   return (
     <div className="p-8 max-w-2xl">
       <Link
         href="/contatos"
-        className="inline-flex items-center gap-2 text-sm mb-6 transition-colors hover:opacity-80"
-        style={{ color: '#5A5C7E' }}
+        className="inline-flex items-center gap-2 text-sm mb-6 transition-colors hover:opacity-60"
+        style={{ color: '#AAAAAA' }}
       >
         <ArrowLeft size={14} />
         Contatos
       </Link>
 
       <div className="mb-8">
-        <p className="text-[10px] font-semibold uppercase mb-1" style={{ color: '#4A4B6A', letterSpacing: '0.14em' }}>
+        <p className="text-[10px] font-semibold uppercase mb-1" style={{ color: '#AAAAAA', letterSpacing: '0.14em' }}>
           Contatos
         </p>
-        <h1 className="text-2xl font-semibold tracking-tight" style={{ color: '#E8E9F4' }}>Novo contato</h1>
+        <h1 className="text-2xl font-semibold tracking-tight" style={{ color: '#1A1A18' }}>Novo contato</h1>
       </div>
 
       <form
         onSubmit={handleSubmit}
         className="p-6 space-y-5 rounded-xl"
-        style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
+        style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E5E8' }}
       >
         <div className="grid grid-cols-2 gap-4">
           <div className="col-span-2 space-y-1.5">
-            <label className="text-xs" style={{ color: '#5A5C7E' }}>Nome *</label>
+            <label className="text-xs" style={{ color: '#AAAAAA' }}>Nome *</label>
             <input
               value={form.name}
               onChange={e => set('name', e.target.value)}
               placeholder="Nome completo"
               style={inputStyle}
-              onFocus={focusStyle}
-              onBlur={blurStyle}
+              onFocus={onFocus}
+              onBlur={onBlur}
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs" style={{ color: '#5A5C7E' }}>WhatsApp</label>
+            <label className="text-xs" style={{ color: '#AAAAAA' }}>WhatsApp</label>
             <input
               value={form.phone}
               onChange={e => set('phone', e.target.value)}
               placeholder="(11) 9 0000-0000"
               style={inputStyle}
-              onFocus={focusStyle}
-              onBlur={blurStyle}
+              onFocus={onFocus}
+              onBlur={onBlur}
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs" style={{ color: '#5A5C7E' }}>E-mail</label>
+            <label className="text-xs" style={{ color: '#AAAAAA' }}>E-mail</label>
             <input
               type="email"
               value={form.email}
               onChange={e => set('email', e.target.value)}
               placeholder="email@exemplo.com"
               style={inputStyle}
-              onFocus={focusStyle}
-              onBlur={blurStyle}
+              onFocus={onFocus}
+              onBlur={onBlur}
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs" style={{ color: '#5A5C7E' }}>Instagram</label>
+            <label className="text-xs" style={{ color: '#AAAAAA' }}>Instagram</label>
             <input
               value={form.instagram}
               onChange={e => set('instagram', e.target.value)}
               placeholder="@handle"
               style={inputStyle}
-              onFocus={focusStyle}
-              onBlur={blurStyle}
+              onFocus={onFocus}
+              onBlur={onBlur}
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs" style={{ color: '#5A5C7E' }}>Empresa</label>
+            <label className="text-xs" style={{ color: '#AAAAAA' }}>Empresa</label>
             <input
               value={form.company}
               onChange={e => set('company', e.target.value)}
               placeholder="Nome da empresa"
               style={inputStyle}
-              onFocus={focusStyle}
-              onBlur={blurStyle}
+              onFocus={onFocus}
+              onBlur={onBlur}
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs" style={{ color: '#5A5C7E' }}>Serviço de interesse</label>
+            <label className="text-xs" style={{ color: '#AAAAAA' }}>Serviço de interesse</label>
             <select
               value={form.service}
               onChange={e => set('service', e.target.value)}
               style={{ ...inputStyle, appearance: 'none' } as React.CSSProperties}
-              onFocus={focusStyle}
-              onBlur={blurStyle}
+              onFocus={onFocus}
+              onBlur={onBlur}
             >
               <option value="">Selecionar...</option>
               {SERVICES.map(([key, label]) => (
@@ -177,13 +177,13 @@ export default function NovoContatoPage() {
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs" style={{ color: '#5A5C7E' }}>Status</label>
+            <label className="text-xs" style={{ color: '#AAAAAA' }}>Status</label>
             <select
               value={form.status}
               onChange={e => set('status', e.target.value)}
               style={{ ...inputStyle, appearance: 'none' } as React.CSSProperties}
-              onFocus={focusStyle}
-              onBlur={blurStyle}
+              onFocus={onFocus}
+              onBlur={onBlur}
             >
               {STATUSES.map(([key, label]) => (
                 <option key={key} value={key}>{label}</option>
@@ -192,13 +192,13 @@ export default function NovoContatoPage() {
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs" style={{ color: '#5A5C7E' }}>Canal de entrada</label>
+            <label className="text-xs" style={{ color: '#AAAAAA' }}>Canal de entrada</label>
             <select
               value={form.source}
               onChange={e => set('source', e.target.value)}
               style={{ ...inputStyle, appearance: 'none' } as React.CSSProperties}
-              onFocus={focusStyle}
-              onBlur={blurStyle}
+              onFocus={onFocus}
+              onBlur={onBlur}
             >
               <option value="instagram_ads">Instagram Ads</option>
               <option value="whatsapp_direto">WhatsApp Direto</option>
@@ -208,40 +208,35 @@ export default function NovoContatoPage() {
           </div>
 
           <div className="col-span-2 space-y-1.5">
-            <label className="text-xs" style={{ color: '#5A5C7E' }}>Observações</label>
+            <label className="text-xs" style={{ color: '#AAAAAA' }}>Observações</label>
             <textarea
               value={form.notes}
               onChange={e => set('notes', e.target.value)}
               placeholder="Contexto sobre o lead, necessidades específicas..."
-              className="w-full min-h-[80px] px-3 py-2.5 text-sm resize-none focus:outline-none"
-              style={{
-                backgroundColor: 'rgba(255,255,255,0.03)',
-                border: '1px solid #1E1F2E',
-                color: '#E8E9F4',
-                borderRadius: '8px',
-              }}
-              onFocus={focusStyle}
-              onBlur={blurStyle}
+              className="w-full min-h-[80px] px-3 py-2.5 text-sm resize-none focus:outline-none bg-white rounded-lg"
+              style={{ border: '1px solid #E5E5E8', color: '#1A1A18' }}
+              onFocus={onFocus}
+              onBlur={onBlur}
             />
           </div>
         </div>
 
-        {error && <p className="text-sm text-red-400">{error}</p>}
+        {error && <p className="text-sm" style={{ color: '#DC2626' }}>{error}</p>}
 
         <div className="flex gap-3 pt-1">
           <button
             type="submit"
             disabled={loading}
-            className="h-9 px-5 rounded-lg text-sm font-semibold transition-all disabled:opacity-40"
-            style={{ background: 'linear-gradient(135deg, #5B21B6, #7C3AED)', color: '#fff' }}
+            className="h-9 px-5 rounded-lg text-sm font-semibold transition-all disabled:opacity-40 hover:opacity-80"
+            style={{ backgroundColor: '#1A1A18', color: '#FFFFFF' }}
           >
             {loading ? 'Salvando...' : 'Salvar contato'}
           </button>
           <Link href="/contatos">
             <button
               type="button"
-              className="h-9 px-5 rounded-lg text-sm transition-all hover:bg-white/5"
-              style={{ color: '#5A5C7E', border: '1px solid #1E1F2E' }}
+              className="h-9 px-5 rounded-lg text-sm transition-all hover:bg-[#F1F1F3]"
+              style={{ color: '#AAAAAA', border: '1px solid #E5E5E8' }}
             >
               Cancelar
             </button>

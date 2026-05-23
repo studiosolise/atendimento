@@ -26,12 +26,15 @@ export function Sidebar() {
   }
 
   return (
-    <aside className="w-56 min-h-screen flex flex-col" style={{ backgroundColor: '#0D0E16', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
-      <div className="px-5 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        <p className="text-[10px] font-semibold tracking-[0.18em] uppercase mb-1" style={{ color: '#4A4B6A' }}>
+    <aside
+      className="w-56 min-h-screen flex flex-col"
+      style={{ backgroundColor: '#FFFFFF', borderRight: '1px solid #E5E5E8' }}
+    >
+      <div className="px-5 py-5" style={{ borderBottom: '1px solid #E5E5E8' }}>
+        <p className="text-[10px] font-semibold tracking-[0.18em] uppercase mb-1" style={{ color: '#AAAAAA' }}>
           Studio Solise
         </p>
-        <p className="text-sm font-semibold tracking-tight" style={{ color: '#E8E9F4' }}>CRM</p>
+        <p className="text-sm font-semibold tracking-tight" style={{ color: '#1A1A18' }}>CRM</p>
       </div>
 
       <nav className="flex-1 px-2 py-3 space-y-0.5">
@@ -43,19 +46,17 @@ export function Sidebar() {
               href={href}
               className={cn(
                 'relative flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-all duration-150',
-                active
-                  ? 'font-medium'
-                  : 'hover:bg-white/5'
+                active ? 'font-medium' : 'hover:bg-black/[0.04]'
               )}
               style={active ? {
-                backgroundColor: 'rgba(139, 92, 246, 0.12)',
-                color: '#C4B5FD',
-              } : { color: '#5A5C7E' }}
+                backgroundColor: '#F1F1F3',
+                color: '#1A1A18',
+              } : { color: '#999999' }}
             >
               {active && (
                 <span
                   className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-r"
-                  style={{ backgroundColor: '#7C3AED' }}
+                  style={{ backgroundColor: '#1A1A18' }}
                 />
               )}
               <Icon size={15} />
@@ -65,11 +66,11 @@ export function Sidebar() {
         })}
       </nav>
 
-      <div className="px-2 py-3" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <div className="px-2 py-3" style={{ borderTop: '1px solid #E5E5E8' }}>
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-all w-full hover:bg-white/5"
-          style={{ color: '#3A3C55' }}
+          className="flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-all w-full hover:bg-black/[0.04]"
+          style={{ color: '#CCCCCC' }}
         >
           <LogOut size={15} />
           Sair

@@ -26,15 +26,15 @@ export function ProjectsPanel({ contactId, contactName }: { contactId: string; c
   return (
     <div
       className="rounded-xl overflow-hidden"
-      style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
+      style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E5E8' }}
     >
       <div
         className="flex items-center justify-between px-4 py-3.5"
-        style={{ borderBottom: '1px solid #1A1B28' }}
+        style={{ borderBottom: '1px solid #F0F0F0' }}
       >
         <div className="flex items-center gap-2">
-          <FolderOpen size={13} style={{ color: '#5A5C7E' }} />
-          <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#E8E9F4' }}>
+          <FolderOpen size={13} style={{ color: '#AAAAAA' }} />
+          <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#1A1A18' }}>
             Projetos
           </p>
         </div>
@@ -43,7 +43,7 @@ export function ProjectsPanel({ contactId, contactName }: { contactId: string; c
 
       {projects.length === 0 ? (
         <div className="px-4 py-3.5">
-          <p className="text-sm" style={{ color: '#5A5C7E' }}>Nenhum projeto vinculado.</p>
+          <p className="text-sm" style={{ color: '#AAAAAA' }}>Nenhum projeto vinculado.</p>
         </div>
       ) : (
         <div>
@@ -51,10 +51,10 @@ export function ProjectsPanel({ contactId, contactName }: { contactId: string; c
             <Link
               key={project.id}
               href={`/projetos/${project.id}`}
-              className="flex items-center justify-between px-4 py-3 transition-colors hover:bg-white/[0.02]"
-              style={{ borderBottom: '1px solid #181926' }}
+              className="flex items-center justify-between px-4 py-3 transition-colors hover:bg-[#FAFAFA]"
+              style={{ borderBottom: '1px solid #F5F5F5' }}
             >
-              <p className="text-sm truncate" style={{ color: '#E8E9F4' }}>{project.title}</p>
+              <p className="text-sm truncate" style={{ color: '#1A1A18' }}>{project.title}</p>
               <span
                 className={`text-[10px] px-1.5 py-0.5 rounded-full border ml-2 flex-shrink-0 ${PROJECT_STATUS_COLORS[project.status as ProjectStatus]}`}
               >

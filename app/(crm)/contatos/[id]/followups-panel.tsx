@@ -65,28 +65,28 @@ export function FollowupsPanel({ contactId, initial }: Props) {
 
   function corData(iso: string) {
     const d = new Date(iso)
-    if (isPast(d) && !isToday(d)) return '#F87171'
-    if (isToday(d)) return '#E8E9F4'
-    return '#5A5C7E'
+    if (isPast(d) && !isToday(d)) return '#DC2626'
+    if (isToday(d)) return '#1A1A18'
+    return '#AAAAAA'
   }
 
   return (
     <div
       className="rounded-xl overflow-hidden"
-      style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
+      style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E5E8' }}
     >
       <button
         onClick={() => setOpen(v => !v)}
-        className="w-full flex items-center justify-between px-4 py-3.5 transition-colors hover:bg-white/[0.02] rounded-xl"
+        className="w-full flex items-center justify-between px-4 py-3.5 transition-colors hover:bg-[#FAFAFA] rounded-xl"
       >
         <div className="flex items-center gap-2">
-          <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#E8E9F4' }}>
+          <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#1A1A18' }}>
             Follow-ups
           </p>
           {pendentes.length > 0 && (
             <span
               className="text-[10px] font-semibold rounded-full px-1.5 py-0.5"
-              style={{ backgroundColor: 'rgba(139,92,246,0.2)', color: '#A78BFA' }}
+              style={{ backgroundColor: '#1A1A18', color: '#FFFFFF' }}
             >
               {pendentes.length}
             </span>
@@ -95,49 +95,46 @@ export function FollowupsPanel({ contactId, initial }: Props) {
         <ChevronDown
           size={14}
           className="transition-transform"
-          style={{ color: '#5A5C7E', transform: open ? 'rotate(180deg)' : 'none' }}
+          style={{ color: '#CCCCCC', transform: open ? 'rotate(180deg)' : 'none' }}
         />
       </button>
 
       {open && (
-        <div className="px-4 pb-4 space-y-2.5" style={{ borderTop: '1px solid #1A1B28' }}>
+        <div className="px-4 pb-4 space-y-2.5" style={{ borderTop: '1px solid #F0F0F0' }}>
           <div className="pt-3 relative">
             <button
               onClick={() => setMenuOpen(v => !v)}
-              className="w-full text-left text-xs rounded-lg px-3 py-2 transition-colors"
-              style={{
-                color: '#5A5C7E',
-                border: '1px dashed #1E1F2E',
-              }}
+              className="w-full text-left text-xs rounded-lg px-3 py-2 transition-colors hover:border-[#1A1A18]"
+              style={{ color: '#AAAAAA', border: '1px dashed #E5E5E8' }}
             >
               + Criar roteiro de follow-up
             </button>
             {menuOpen && (
               <div
-                className="absolute top-full left-0 mt-1 w-full rounded-xl z-10 overflow-hidden"
-                style={{ backgroundColor: '#17172A', border: '1px solid #252538', boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }}
+                className="absolute top-full left-0 mt-1 w-full rounded-xl z-10 overflow-hidden bg-white"
+                style={{ border: '1px solid #E5E5E8', boxShadow: '0 8px 24px rgba(0,0,0,0.08)' }}
               >
                 <button
                   onClick={() => criarRoteiro('primeiro_contato')}
-                  className="w-full text-left px-4 py-3 text-sm transition-colors hover:bg-white/5"
+                  className="w-full text-left px-4 py-3 text-sm transition-colors hover:bg-[#FAFAFA]"
                 >
-                  <p className="font-medium" style={{ color: '#E8E9F4' }}>Primeiro contato</p>
-                  <p className="text-xs mt-0.5" style={{ color: '#5A5C7E' }}>D+3, D+7, D+14</p>
+                  <p className="font-medium" style={{ color: '#1A1A18' }}>Primeiro contato</p>
+                  <p className="text-xs mt-0.5" style={{ color: '#AAAAAA' }}>D+3, D+7, D+14</p>
                 </button>
-                <div style={{ borderTop: '1px solid #1E1F2E' }} />
+                <div style={{ borderTop: '1px solid #F0F0F0' }} />
                 <button
                   onClick={() => criarRoteiro('proposta')}
-                  className="w-full text-left px-4 py-3 text-sm transition-colors hover:bg-white/5"
+                  className="w-full text-left px-4 py-3 text-sm transition-colors hover:bg-[#FAFAFA]"
                 >
-                  <p className="font-medium" style={{ color: '#E8E9F4' }}>Após proposta</p>
-                  <p className="text-xs mt-0.5" style={{ color: '#5A5C7E' }}>D+3, D+7, D+14, D+21</p>
+                  <p className="font-medium" style={{ color: '#1A1A18' }}>Após proposta</p>
+                  <p className="text-xs mt-0.5" style={{ color: '#AAAAAA' }}>D+3, D+7, D+14, D+21</p>
                 </button>
               </div>
             )}
           </div>
 
           {pendentes.length === 0 && feitos.length === 0 && (
-            <p className="text-xs" style={{ color: '#3A3C55' }}>Nenhum follow-up agendado.</p>
+            <p className="text-xs" style={{ color: '#CCCCCC' }}>Nenhum follow-up agendado.</p>
           )}
 
           {pendentes.map(f => (
@@ -145,36 +142,24 @@ export function FollowupsPanel({ contactId, initial }: Props) {
               <button
                 onClick={() => marcarFeito(f.id)}
                 disabled={isPending}
-                className="mt-0.5 w-4 h-4 rounded flex items-center justify-center transition-all flex-shrink-0"
-                style={{ border: '1px solid #2A2B3D' }}
-                onMouseEnter={e => {
-                  const el = e.currentTarget
-                  el.style.backgroundColor = '#5B21B6'
-                  el.style.borderColor = '#5B21B6'
-                }}
-                onMouseLeave={e => {
-                  const el = e.currentTarget
-                  el.style.backgroundColor = 'transparent'
-                  el.style.borderColor = '#2A2B3D'
-                }}
+                className="mt-0.5 w-4 h-4 rounded flex items-center justify-center transition-all flex-shrink-0 hover:bg-[#1A1A18] hover:border-[#1A1A18]"
+                style={{ border: '1px solid #CCCCCC' }}
               >
-                <Check size={10} style={{ color: 'transparent' }} className="group-hover:text-white" />
+                <Check size={10} className="opacity-0 group-hover:opacity-0 text-white" />
               </button>
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-medium" style={{ color: corData(f.scheduled_for) }}>
                   {labelData(f.scheduled_for)}
                 </p>
                 {f.message_template && (
-                  <p className="text-xs truncate mt-0.5" style={{ color: '#3A3C55' }}>{f.message_template}</p>
+                  <p className="text-xs truncate mt-0.5" style={{ color: '#CCCCCC' }}>{f.message_template}</p>
                 )}
               </div>
               <button
                 onClick={() => deletar(f.id)}
                 disabled={isPending}
-                className="opacity-0 group-hover:opacity-100 transition-opacity"
-                style={{ color: '#3A3C55' }}
-                onMouseEnter={e => (e.currentTarget.style.color = '#F87171')}
-                onMouseLeave={e => (e.currentTarget.style.color = '#3A3C55')}
+                className="opacity-0 group-hover:opacity-100 transition-opacity hover:text-red-500"
+                style={{ color: '#CCCCCC' }}
               >
                 <Trash2 size={12} />
               </button>
@@ -182,7 +167,7 @@ export function FollowupsPanel({ contactId, initial }: Props) {
           ))}
 
           {feitos.length > 0 && (
-            <p className="text-[11px]" style={{ color: '#2A2B3D' }}>
+            <p className="text-[11px]" style={{ color: '#CCCCCC' }}>
               {feitos.length} feito{feitos.length > 1 ? 's' : ''}
             </p>
           )}

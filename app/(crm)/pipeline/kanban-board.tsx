@@ -81,7 +81,7 @@ export function KanbanBoard({ initialGrouped }: { initialGrouped: Record<LeadSta
               <span
                 className="text-[10px] font-semibold rounded-md px-1.5 py-0.5"
                 style={{
-                  backgroundColor: 'rgba(0,0,0,0.3)',
+                  backgroundColor: 'rgba(0,0,0,0.06)',
                   color: colors.dotColor,
                 }}
               >
@@ -98,28 +98,29 @@ export function KanbanBoard({ initialGrouped }: { initialGrouped: Record<LeadSta
                   onDragStart={() => onDragStart(contact)}
                   className="rounded-lg p-3 cursor-grab active:cursor-grabbing select-none transition-all"
                   style={{
-                    backgroundColor: '#111218',
-                    border: '1px solid #1E1F2E',
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #E5E5E8',
                     opacity: dragging?.id === contact.id ? 0.35 : 1,
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
                   }}
                   onMouseEnter={e => (e.currentTarget.style.borderColor = colors.borderColor)}
-                  onMouseLeave={e => (e.currentTarget.style.borderColor = '#1E1F2E')}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = '#E5E5E8')}
                 >
                   <Link href={`/contatos/${contact.id}`} onClick={e => e.stopPropagation()}>
                     <p
                       className="text-sm font-medium hover:underline underline-offset-1 leading-tight"
-                      style={{ color: '#E8E9F4' }}
+                      style={{ color: '#1A1A18' }}
                     >
                       {contact.name}
                     </p>
                   </Link>
                   {contact.service && (
-                    <p className="text-xs mt-1" style={{ color: '#5A5C7E' }}>
+                    <p className="text-xs mt-1" style={{ color: '#AAAAAA' }}>
                       {SERVICE_LABELS[contact.service]}
                     </p>
                   )}
                   {contact.last_contact_at && (
-                    <p className="text-[11px] mt-1.5" style={{ color: '#3A3C55' }}>
+                    <p className="text-[11px] mt-1.5" style={{ color: '#CCCCCC' }}>
                       {formatDistanceToNow(new Date(contact.last_contact_at), { addSuffix: true, locale: ptBR })}
                     </p>
                   )}

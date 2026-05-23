@@ -20,10 +20,10 @@ export default async function PipelinePage() {
   return (
     <div className="p-8">
       <div className="mb-8">
-        <p className="text-[10px] font-semibold uppercase mb-1" style={{ color: '#4A4B6A', letterSpacing: '0.14em' }}>
+        <p className="text-[10px] font-semibold uppercase mb-1" style={{ color: '#AAAAAA', letterSpacing: '0.14em' }}>
           Funil
         </p>
-        <h1 className="text-2xl font-semibold tracking-tight" style={{ color: '#E8E9F4' }}>Pipeline</h1>
+        <h1 className="text-2xl font-semibold tracking-tight" style={{ color: '#1A1A18' }}>Pipeline</h1>
       </div>
 
       <KanbanBoard initialGrouped={grouped} />

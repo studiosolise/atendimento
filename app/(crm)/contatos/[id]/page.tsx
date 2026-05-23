@@ -50,8 +50,8 @@ export default async function ContatoPage({ params }: { params: Promise<{ id: st
     <div className="p-8 max-w-5xl">
       <Link
         href="/contatos"
-        className="inline-flex items-center gap-2 text-sm mb-6 transition-colors hover:opacity-80"
-        style={{ color: '#5A5C7E' }}
+        className="inline-flex items-center gap-2 text-sm mb-6 transition-colors hover:opacity-60"
+        style={{ color: '#AAAAAA' }}
       >
         <ArrowLeft size={14} />
         Contatos
@@ -60,13 +60,13 @@ export default async function ContatoPage({ params }: { params: Promise<{ id: st
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight" style={{ color: '#E8E9F4' }}>
+          <h1 className="text-2xl font-semibold tracking-tight" style={{ color: '#1A1A18' }}>
             {contact.name}
           </h1>
           <div className="flex items-center gap-3 mt-2">
             <StatusBadge status={contact.status} />
             {contact.service && (
-              <span className="text-sm" style={{ color: '#5A5C7E' }}>
+              <span className="text-sm" style={{ color: '#AAAAAA' }}>
                 {SERVICE_LABELS[contact.service]}
               </span>
             )}
@@ -74,7 +74,7 @@ export default async function ContatoPage({ params }: { params: Promise<{ id: st
         </div>
       </div>
 
-      {/* VERA — hero panel, sempre visível */}
+      {/* VERA — hero panel */}
       <div className="mb-6">
         <AgentePanel contact={contact} interactions={interactions ?? []} />
       </div>
@@ -85,15 +85,15 @@ export default async function ContatoPage({ params }: { params: Promise<{ id: st
         <div className="col-span-2 space-y-4">
           <div
             className="rounded-xl overflow-hidden"
-            style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
+            style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E5E8' }}
           >
-            <div className="px-5 py-4" style={{ borderBottom: '1px solid #1A1B28' }}>
-              <p className="text-sm font-semibold" style={{ color: '#E8E9F4' }}>Histórico</p>
+            <div className="px-5 py-4" style={{ borderBottom: '1px solid #F0F0F0' }}>
+              <p className="text-sm font-semibold" style={{ color: '#1A1A18' }}>Histórico</p>
             </div>
             <InteractionForm contactId={id} />
             <div>
               {!interactions?.length ? (
-                <p className="px-5 py-6 text-sm" style={{ color: '#5A5C7E' }}>
+                <p className="px-5 py-6 text-sm" style={{ color: '#AAAAAA' }}>
                   Nenhuma interação registrada.
                 </p>
               ) : (
@@ -101,20 +101,20 @@ export default async function ContatoPage({ params }: { params: Promise<{ id: st
                   <div
                     key={item.id}
                     className="px-5 py-4"
-                    style={{ borderBottom: '1px solid #181926' }}
+                    style={{ borderBottom: '1px solid #F5F5F5' }}
                   >
                     <div className="flex items-center gap-2 mb-1.5">
                       <span
                         className="text-[11px] font-medium px-2 py-0.5 rounded"
-                        style={{ backgroundColor: 'rgba(255,255,255,0.06)', color: '#7273A0' }}
+                        style={{ backgroundColor: '#F1F1F3', color: '#888888' }}
                       >
                         {INTERACTION_LABELS[item.type] ?? item.type}
                       </span>
-                      <span className="text-xs" style={{ color: '#3A3C55' }}>
+                      <span className="text-xs" style={{ color: '#CCCCCC' }}>
                         {format(new Date(item.created_at), "d 'de' MMM, HH:mm", { locale: ptBR })}
                       </span>
                     </div>
-                    <p className="text-sm whitespace-pre-wrap leading-relaxed" style={{ color: '#B0B2D0' }}>
+                    <p className="text-sm whitespace-pre-wrap leading-relaxed" style={{ color: '#444444' }}>
                       {item.content}
                     </p>
                   </div>
@@ -129,44 +129,44 @@ export default async function ContatoPage({ params }: { params: Promise<{ id: st
           {/* Dados do contato */}
           <div
             className="p-5 space-y-3 rounded-xl"
-            style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
+            style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E5E8' }}
           >
-            <p className="text-[10px] font-semibold uppercase mb-3" style={{ color: '#4A4B6A', letterSpacing: '0.12em' }}>
+            <p className="text-[10px] font-semibold uppercase mb-3" style={{ color: '#AAAAAA', letterSpacing: '0.12em' }}>
               Dados
             </p>
             {contact.phone && (
               <div>
-                <p className="text-[10px] mb-0.5" style={{ color: '#3A3C55' }}>WhatsApp</p>
-                <p className="text-sm" style={{ color: '#E8E9F4' }}>{contact.phone}</p>
+                <p className="text-[10px] mb-0.5" style={{ color: '#CCCCCC' }}>WhatsApp</p>
+                <p className="text-sm" style={{ color: '#1A1A18' }}>{contact.phone}</p>
               </div>
             )}
             {contact.email && (
               <div>
-                <p className="text-[10px] mb-0.5" style={{ color: '#3A3C55' }}>E-mail</p>
-                <p className="text-sm" style={{ color: '#E8E9F4' }}>{contact.email}</p>
+                <p className="text-[10px] mb-0.5" style={{ color: '#CCCCCC' }}>E-mail</p>
+                <p className="text-sm" style={{ color: '#1A1A18' }}>{contact.email}</p>
               </div>
             )}
             {contact.instagram && (
               <div>
-                <p className="text-[10px] mb-0.5" style={{ color: '#3A3C55' }}>Instagram</p>
-                <p className="text-sm" style={{ color: '#E8E9F4' }}>{contact.instagram}</p>
+                <p className="text-[10px] mb-0.5" style={{ color: '#CCCCCC' }}>Instagram</p>
+                <p className="text-sm" style={{ color: '#1A1A18' }}>{contact.instagram}</p>
               </div>
             )}
             {contact.company && (
               <div>
-                <p className="text-[10px] mb-0.5" style={{ color: '#3A3C55' }}>Empresa</p>
-                <p className="text-sm" style={{ color: '#E8E9F4' }}>{contact.company}</p>
+                <p className="text-[10px] mb-0.5" style={{ color: '#CCCCCC' }}>Empresa</p>
+                <p className="text-sm" style={{ color: '#1A1A18' }}>{contact.company}</p>
               </div>
             )}
             {contact.notes && (
               <div>
-                <p className="text-[10px] mb-0.5" style={{ color: '#3A3C55' }}>Observações</p>
-                <p className="text-sm leading-relaxed" style={{ color: '#B0B2D0' }}>{contact.notes}</p>
+                <p className="text-[10px] mb-0.5" style={{ color: '#CCCCCC' }}>Observações</p>
+                <p className="text-sm leading-relaxed" style={{ color: '#666666' }}>{contact.notes}</p>
               </div>
             )}
             <div>
-              <p className="text-[10px] mb-0.5" style={{ color: '#3A3C55' }}>Cadastrado em</p>
-              <p className="text-sm" style={{ color: '#7273A0' }}>
+              <p className="text-[10px] mb-0.5" style={{ color: '#CCCCCC' }}>Cadastrado em</p>
+              <p className="text-sm" style={{ color: '#AAAAAA' }}>
                 {format(new Date(contact.created_at), "d 'de' MMM 'de' yyyy", { locale: ptBR })}
               </p>
             </div>

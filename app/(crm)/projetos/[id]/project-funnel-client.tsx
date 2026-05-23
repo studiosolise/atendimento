@@ -44,9 +44,9 @@ export function ProjectFunnelClient({ projectId, currentStatus }: { projectId: s
   return (
     <div
       className="p-5 rounded-xl"
-      style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
+      style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E5E8' }}
     >
-      <p className="text-[10px] font-semibold uppercase mb-4" style={{ color: '#4A4B6A', letterSpacing: '0.12em' }}>
+      <p className="text-[10px] font-semibold uppercase mb-4" style={{ color: '#AAAAAA', letterSpacing: '0.12em' }}>
         Mover etapa
       </p>
 
@@ -59,16 +59,16 @@ export function ProjectFunnelClient({ projectId, currentStatus }: { projectId: s
               key={stage}
               className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors"
               style={{
-                backgroundColor: isActive ? 'rgba(139,92,246,0.12)' : 'transparent',
-                color: isActive ? '#C4B5FD' : isDone ? '#3A3C55' : '#5A5C7E',
+                backgroundColor: isActive ? '#F1F1F3' : 'transparent',
+                color: isActive ? '#1A1A18' : isDone ? '#CCCCCC' : '#AAAAAA',
               }}
             >
               <span
                 className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-semibold flex-shrink-0"
                 style={{
-                  border: `1px solid ${isActive ? '#7C3AED' : isDone ? '#2A2B3D' : '#1E1F2E'}`,
-                  color: isActive ? '#A78BFA' : isDone ? '#3A3C55' : '#2A2B3D',
-                  background: isActive ? 'rgba(124,58,237,0.2)' : 'transparent',
+                  border: `1px solid ${isActive ? '#1A1A18' : isDone ? '#E5E5E8' : '#E5E5E8'}`,
+                  color: isActive ? '#1A1A18' : isDone ? '#CCCCCC' : '#CCCCCC',
+                  background: isActive ? 'transparent' : 'transparent',
                 }}
               >
                 {isDone ? '✓' : i + 1}
@@ -86,8 +86,8 @@ export function ProjectFunnelClient({ projectId, currentStatus }: { projectId: s
           <button
             onClick={goBack}
             disabled={loading}
-            className="flex-1 py-2.5 text-sm rounded-lg transition-all disabled:opacity-40 hover:bg-white/5"
-            style={{ color: '#7273A0', border: '1px solid #1E1F2E' }}
+            className="flex-1 py-2.5 text-sm rounded-lg transition-all disabled:opacity-40 hover:bg-[#F1F1F3]"
+            style={{ color: '#AAAAAA', border: '1px solid #E5E5E8' }}
           >
             ← Voltar etapa
           </button>
@@ -96,8 +96,8 @@ export function ProjectFunnelClient({ projectId, currentStatus }: { projectId: s
           <button
             onClick={advance}
             disabled={loading}
-            className="flex-1 py-2.5 text-sm rounded-lg font-medium transition-all disabled:opacity-40"
-            style={{ background: 'linear-gradient(135deg, #5B21B6, #7C3AED)', color: '#fff' }}
+            className="flex-1 py-2.5 text-sm rounded-lg font-medium transition-all disabled:opacity-40 hover:opacity-80"
+            style={{ backgroundColor: '#1A1A18', color: '#FFFFFF' }}
           >
             Avançar → {PROJECT_STATUS_LABELS[PROJECT_FUNNEL[currentIndex + 1]]}
           </button>
@@ -105,7 +105,7 @@ export function ProjectFunnelClient({ projectId, currentStatus }: { projectId: s
         {isLast && (
           <div
             className="flex-1 py-2.5 text-sm text-center rounded-lg"
-            style={{ backgroundColor: 'rgba(52,211,153,0.08)', color: '#34D399', border: '1px solid rgba(52,211,153,0.2)' }}
+            style={{ backgroundColor: 'rgba(5,150,105,0.06)', color: '#059669', border: '1px solid rgba(5,150,105,0.2)' }}
           >
             Projeto entregue
           </div>

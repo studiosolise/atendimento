@@ -24,10 +24,10 @@ export default async function ProjetosPage() {
     <div className="p-8 max-w-5xl">
       <div className="flex items-start justify-between mb-8">
         <div>
-          <p className="text-[10px] font-semibold uppercase mb-1" style={{ color: '#4A4B6A', letterSpacing: '0.14em' }}>
+          <p className="text-[10px] font-semibold uppercase mb-1" style={{ color: '#AAAAAA', letterSpacing: '0.14em' }}>
             Produção
           </p>
-          <h1 className="text-2xl font-semibold tracking-tight" style={{ color: '#E8E9F4' }}>Projetos</h1>
+          <h1 className="text-2xl font-semibold tracking-tight" style={{ color: '#1A1A18' }}>Projetos</h1>
         </div>
         <NovoProjetoButton />
       </div>
@@ -35,11 +35,11 @@ export default async function ProjetosPage() {
       {!projects?.length ? (
         <div
           className="p-12 text-center rounded-xl"
-          style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
+          style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E5E8' }}
         >
-          <FolderOpen size={32} className="mx-auto mb-3" style={{ color: '#2A2B3D' }} />
-          <p className="text-sm" style={{ color: '#5A5C7E' }}>Nenhum projeto ainda.</p>
-          <p className="text-xs mt-1" style={{ color: '#3A3C55' }}>
+          <FolderOpen size={32} className="mx-auto mb-3" style={{ color: '#E5E5E8' }} />
+          <p className="text-sm" style={{ color: '#AAAAAA' }}>Nenhum projeto ainda.</p>
+          <p className="text-xs mt-1" style={{ color: '#CCCCCC' }}>
             Projetos aparecem quando um lead é fechado.
           </p>
         </div>
@@ -47,7 +47,7 @@ export default async function ProjetosPage() {
         <div className="space-y-8">
           {ativos.length > 0 && (
             <div>
-              <p className="text-[10px] font-semibold uppercase mb-3" style={{ color: '#4A4B6A', letterSpacing: '0.12em' }}>
+              <p className="text-[10px] font-semibold uppercase mb-3" style={{ color: '#AAAAAA', letterSpacing: '0.12em' }}>
                 Em andamento
               </p>
               <div className="space-y-2">
@@ -60,7 +60,7 @@ export default async function ProjetosPage() {
 
           {entregues.length > 0 && (
             <div>
-              <p className="text-[10px] font-semibold uppercase mb-3" style={{ color: '#4A4B6A', letterSpacing: '0.12em' }}>
+              <p className="text-[10px] font-semibold uppercase mb-3" style={{ color: '#AAAAAA', letterSpacing: '0.12em' }}>
                 Entregues
               </p>
               <div className="space-y-2">
@@ -83,30 +83,30 @@ function ProjectRow({ project }: { project: ProjectWithContact }) {
   return (
     <Link
       href={`/projetos/${project.id}`}
-      className="flex items-center gap-4 px-5 py-4 rounded-xl transition-all group hover:border-[#2A2B3D]"
-      style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
+      className="flex items-center gap-4 px-5 py-4 rounded-xl transition-all group hover:border-[#CCCCCC]"
+      style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E5E8' }}
     >
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium truncate" style={{ color: '#E8E9F4' }}>{project.title}</p>
+        <p className="text-sm font-medium truncate" style={{ color: '#1A1A18' }}>{project.title}</p>
         {project.contacts?.name && (
-          <p className="text-xs mt-0.5" style={{ color: '#5A5C7E' }}>{project.contacts.name}</p>
+          <p className="text-xs mt-0.5" style={{ color: '#AAAAAA' }}>{project.contacts.name}</p>
         )}
       </div>
 
       {project.service && (
-        <span className="text-xs hidden sm:block" style={{ color: '#5A5C7E' }}>
+        <span className="text-xs hidden sm:block" style={{ color: '#AAAAAA' }}>
           {SERVICE_LABELS[project.service as ServiceType]}
         </span>
       )}
 
       {project.value && (
-        <span className="text-sm font-medium" style={{ color: '#A78BFA' }}>
+        <span className="text-sm font-medium" style={{ color: '#1A1A18' }}>
           {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(project.value)}
         </span>
       )}
 
       {project.deadline && (
-        <span className="text-xs" style={{ color: '#5A5C7E' }}>
+        <span className="text-xs" style={{ color: '#AAAAAA' }}>
           {format(new Date(project.deadline + 'T12:00:00'), "d MMM", { locale: ptBR })}
         </span>
       )}

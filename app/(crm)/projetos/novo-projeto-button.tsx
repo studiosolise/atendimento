@@ -10,9 +10,9 @@ const SERVICES = Object.entries(SERVICE_LABELS) as [ServiceType, string][]
 
 const inputStyle: React.CSSProperties = {
   width: '100%',
-  backgroundColor: 'rgba(255,255,255,0.04)',
-  border: '1px solid #1E1F2E',
-  color: '#E8E9F4',
+  backgroundColor: '#FFFFFF',
+  border: '1px solid #E5E5E8',
+  color: '#1A1A18',
   borderRadius: '8px',
   height: '36px',
   padding: '0 12px',
@@ -38,11 +38,11 @@ export function NovoProjetoButton({ contactId, contactName, compact }: { contact
   }
 
   const onFocus = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    e.target.style.borderColor = 'rgba(91,33,182,0.5)'
+    e.target.style.borderColor = '#1A1A18'
     e.target.style.outline = 'none'
   }
   const onBlur = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    e.target.style.borderColor = '#1E1F2E'
+    e.target.style.borderColor = '#E5E5E8'
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -76,8 +76,8 @@ export function NovoProjetoButton({ contactId, contactName, compact }: { contact
       return (
         <button
           onClick={() => setOpen(true)}
-          className="flex items-center gap-1 text-xs transition-colors hover:opacity-80"
-          style={{ color: '#7273A0' }}
+          className="flex items-center gap-1 text-xs transition-colors hover:opacity-60"
+          style={{ color: '#AAAAAA' }}
         >
           <Plus size={12} />
           Novo
@@ -87,8 +87,8 @@ export function NovoProjetoButton({ contactId, contactName, compact }: { contact
     return (
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 h-9 px-4 rounded-lg text-sm font-medium transition-all"
-        style={{ background: 'linear-gradient(135deg, #5B21B6, #7C3AED)', color: '#fff' }}
+        className="flex items-center gap-2 h-9 px-4 rounded-lg text-sm font-medium transition-all hover:opacity-80"
+        style={{ backgroundColor: '#1A1A18', color: '#FFFFFF' }}
       >
         <Plus size={14} />
         Novo projeto
@@ -97,17 +97,17 @@ export function NovoProjetoButton({ contactId, contactName, compact }: { contact
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center" style={{ backgroundColor: 'rgba(0,0,0,0.7)' }}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center" style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}>
       <div
         className="w-full max-w-md p-6 rounded-xl"
-        style={{ backgroundColor: '#13131C', border: '1px solid #1E1F2E', boxShadow: '0 24px 64px rgba(0,0,0,0.6)' }}
+        style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E5E8', boxShadow: '0 24px 64px rgba(0,0,0,0.12)' }}
       >
         <div className="flex items-center justify-between mb-5">
-          <p className="text-sm font-semibold" style={{ color: '#E8E9F4' }}>Novo projeto</p>
+          <p className="text-sm font-semibold" style={{ color: '#1A1A18' }}>Novo projeto</p>
           <button
             onClick={() => setOpen(false)}
-            className="transition-colors hover:opacity-80"
-            style={{ color: '#5A5C7E' }}
+            className="transition-colors hover:opacity-60"
+            style={{ color: '#AAAAAA' }}
           >
             <X size={16} />
           </button>
@@ -115,7 +115,7 @@ export function NovoProjetoButton({ contactId, contactName, compact }: { contact
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1.5">
-            <label className="text-xs" style={{ color: '#5A5C7E' }}>Título *</label>
+            <label className="text-xs" style={{ color: '#AAAAAA' }}>Título *</label>
             <input
               value={form.title}
               onChange={e => set('title', e.target.value)}
@@ -127,7 +127,7 @@ export function NovoProjetoButton({ contactId, contactName, compact }: { contact
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs" style={{ color: '#5A5C7E' }}>Serviço</label>
+            <label className="text-xs" style={{ color: '#AAAAAA' }}>Serviço</label>
             <select
               value={form.service}
               onChange={e => set('service', e.target.value)}
@@ -144,7 +144,7 @@ export function NovoProjetoButton({ contactId, contactName, compact }: { contact
 
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <label className="text-xs" style={{ color: '#5A5C7E' }}>Valor (R$)</label>
+              <label className="text-xs" style={{ color: '#AAAAAA' }}>Valor (R$)</label>
               <input
                 value={form.value}
                 onChange={e => set('value', e.target.value)}
@@ -155,7 +155,7 @@ export function NovoProjetoButton({ contactId, contactName, compact }: { contact
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-xs" style={{ color: '#5A5C7E' }}>Prazo</label>
+              <label className="text-xs" style={{ color: '#AAAAAA' }}>Prazo</label>
               <input
                 type="date"
                 value={form.deadline}
@@ -168,39 +168,34 @@ export function NovoProjetoButton({ contactId, contactName, compact }: { contact
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs" style={{ color: '#5A5C7E' }}>Observações</label>
+            <label className="text-xs" style={{ color: '#AAAAAA' }}>Observações</label>
             <textarea
               value={form.notes}
               onChange={e => set('notes', e.target.value)}
               placeholder="Detalhes do briefing, requisitos..."
-              className="w-full min-h-[72px] px-3 py-2.5 text-sm resize-none focus:outline-none"
-              style={{
-                backgroundColor: 'rgba(255,255,255,0.04)',
-                border: '1px solid #1E1F2E',
-                color: '#E8E9F4',
-                borderRadius: '8px',
-              }}
+              className="w-full min-h-[72px] px-3 py-2.5 text-sm resize-none focus:outline-none bg-white rounded-lg"
+              style={{ border: '1px solid #E5E5E8', color: '#1A1A18' }}
               onFocus={onFocus}
               onBlur={onBlur}
             />
           </div>
 
-          {error && <p className="text-sm text-red-400">{error}</p>}
+          {error && <p className="text-sm" style={{ color: '#DC2626' }}>{error}</p>}
 
           <div className="flex gap-3 pt-1">
             <button
               type="submit"
               disabled={loading}
-              className="h-9 px-5 rounded-lg text-sm font-semibold transition-all disabled:opacity-40"
-              style={{ background: 'linear-gradient(135deg, #5B21B6, #7C3AED)', color: '#fff' }}
+              className="h-9 px-5 rounded-lg text-sm font-semibold transition-all disabled:opacity-40 hover:opacity-80"
+              style={{ backgroundColor: '#1A1A18', color: '#FFFFFF' }}
             >
               {loading ? 'Criando...' : 'Criar projeto'}
             </button>
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="h-9 px-5 rounded-lg text-sm transition-all hover:bg-white/5"
-              style={{ color: '#5A5C7E', border: '1px solid #1E1F2E' }}
+              className="h-9 px-5 rounded-lg text-sm transition-all hover:bg-[#F1F1F3]"
+              style={{ color: '#AAAAAA', border: '1px solid #E5E5E8' }}
             >
               Cancelar
             </button>

@@ -44,50 +44,50 @@ export function FollowupsAgenda({ vencidos: v, deHoje: h, proximos: p, depois: d
       <div className="mb-5">
         <p
           className="text-[10px] font-semibold uppercase tracking-wider mb-3"
-          style={{ color: destaque ? '#F87171' : '#4A4B6A', letterSpacing: '0.12em' }}
+          style={{ color: destaque ? '#DC2626' : '#AAAAAA', letterSpacing: '0.12em' }}
         >
           {titulo}
         </p>
         <div
           className="rounded-xl overflow-hidden"
-          style={{ backgroundColor: '#111218', border: `1px solid ${destaque ? 'rgba(248,113,113,0.2)' : '#1E1F2E'}` }}
+          style={{ backgroundColor: '#FFFFFF', border: `1px solid ${destaque ? 'rgba(220,38,38,0.2)' : '#E5E5E8'}` }}
         >
           {visiveis.map((f, i) => (
             <div
               key={f.id}
-              className="flex items-center gap-3 px-4 py-3 group transition-colors hover:bg-white/[0.02]"
-              style={{ borderBottom: i < visiveis.length - 1 ? '1px solid #181926' : 'none' }}
+              className="flex items-center gap-3 px-4 py-3 group transition-colors hover:bg-[#FAFAFA]"
+              style={{ borderBottom: i < visiveis.length - 1 ? '1px solid #F5F5F5' : 'none' }}
             >
               <button
                 onClick={() => marcarFeito(f.id)}
                 disabled={isPending}
                 className="w-5 h-5 rounded flex items-center justify-center transition-all flex-shrink-0"
-                style={{ border: '1px solid #2A2B3D' }}
+                style={{ border: '1px solid #CCCCCC' }}
                 onMouseEnter={e => {
                   const el = e.currentTarget
-                  el.style.backgroundColor = '#5B21B6'
-                  el.style.borderColor = '#5B21B6'
+                  el.style.backgroundColor = '#1A1A18'
+                  el.style.borderColor = '#1A1A18'
                 }}
                 onMouseLeave={e => {
                   const el = e.currentTarget
                   el.style.backgroundColor = 'transparent'
-                  el.style.borderColor = '#2A2B3D'
+                  el.style.borderColor = '#CCCCCC'
                 }}
               >
-                <Check size={11} style={{ color: 'transparent' }} />
+                <Check size={11} style={{ color: 'white' }} className="opacity-0 group-hover:opacity-0" />
               </button>
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <p className="text-sm font-medium truncate" style={{ color: '#E8E9F4' }}>
+                  <p className="text-sm font-medium truncate" style={{ color: '#1A1A18' }}>
                     {f.contacts?.name ?? 'Contato removido'}
                   </p>
-                  <span className="text-xs" style={{ color: '#3A3C55' }}>
+                  <span className="text-xs" style={{ color: '#CCCCCC' }}>
                     {format(new Date(f.scheduled_for), "d 'de' MMM", { locale: ptBR })}
                   </span>
                 </div>
                 {f.message_template && (
-                  <p className="text-xs truncate mt-0.5" style={{ color: '#3A3C55' }}>
+                  <p className="text-xs truncate mt-0.5" style={{ color: '#CCCCCC' }}>
                     {f.message_template}
                   </p>
                 )}
@@ -97,7 +97,7 @@ export function FollowupsAgenda({ vencidos: v, deHoje: h, proximos: p, depois: d
                 <Link
                   href={`/contatos/${f.contacts.id}`}
                   className="opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ color: '#3A3C55' }}
+                  style={{ color: '#CCCCCC' }}
                 >
                   <ExternalLink size={14} />
                 </Link>

@@ -65,34 +65,30 @@ export function AgentePanel({ contact, interactions }: Props) {
   return (
     <div
       className="rounded-xl overflow-hidden"
-      style={{
-        background: 'linear-gradient(135deg, #0F0720 0%, #0C0618 100%)',
-        border: '1px solid #5B21B6',
-        boxShadow: '0 0 0 1px rgba(91,33,182,0.2), 0 0 32px rgba(91,33,182,0.12)',
-      }}
+      style={{ backgroundColor: '#1A1A18' }}
     >
       {/* Header */}
       <div
         className="flex items-center justify-between px-5 py-4"
-        style={{
-          background: 'linear-gradient(90deg, rgba(91,33,182,0.2) 0%, transparent 100%)',
-          borderBottom: '1px solid rgba(91,33,182,0.2)',
-        }}
+        style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}
       >
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-7 h-7 rounded-lg" style={{ backgroundColor: 'rgba(139,92,246,0.2)' }}>
-            <Sparkles size={14} style={{ color: '#A78BFA' }} />
+          <div
+            className="flex items-center justify-center w-7 h-7 rounded-lg"
+            style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
+          >
+            <Sparkles size={14} style={{ color: '#FFFFFF' }} />
           </div>
           <div>
-            <span className="text-sm font-semibold tracking-wide" style={{ color: '#C4B5FD' }}>Vera</span>
-            <span className="text-xs ml-2" style={{ color: '#6D5DA0' }}>Agente de atendimento</span>
+            <span className="text-sm font-semibold tracking-wide" style={{ color: '#FFFFFF' }}>Vera</span>
+            <span className="text-xs ml-2" style={{ color: '#888888' }}>Agente de atendimento</span>
           </div>
         </div>
         <span
           className="flex items-center gap-1.5 text-[10px] font-medium px-2 py-1 rounded-full"
-          style={{ backgroundColor: 'rgba(139,92,246,0.15)', color: '#A78BFA' }}
+          style={{ backgroundColor: 'rgba(255,255,255,0.08)', color: '#888888' }}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
           ativa
         </span>
       </div>
@@ -100,7 +96,7 @@ export function AgentePanel({ contact, interactions }: Props) {
       <div className="p-5 space-y-4">
         {/* Action pills */}
         <div>
-          <p className="text-[10px] font-medium uppercase mb-2.5" style={{ color: '#5A4C80', letterSpacing: '0.12em' }}>
+          <p className="text-[10px] font-medium uppercase mb-2.5" style={{ color: '#555555', letterSpacing: '0.12em' }}>
             Tipo de mensagem
           </p>
           <div className="flex flex-wrap gap-1.5">
@@ -110,13 +106,12 @@ export function AgentePanel({ contact, interactions }: Props) {
                 onClick={() => { setAction(key); setSugestao('') }}
                 className="text-xs px-3 py-1.5 rounded-lg transition-all"
                 style={action === key ? {
-                  background: 'linear-gradient(135deg, #5B21B6, #7C3AED)',
-                  color: '#fff',
-                  boxShadow: '0 2px 8px rgba(91,33,182,0.4)',
+                  backgroundColor: '#FFFFFF',
+                  color: '#1A1A18',
                 } : {
-                  backgroundColor: 'rgba(255,255,255,0.04)',
-                  color: '#7273A0',
-                  border: '1px solid rgba(255,255,255,0.07)',
+                  backgroundColor: 'rgba(255,255,255,0.06)',
+                  color: '#888888',
+                  border: '1px solid rgba(255,255,255,0.08)',
                 }}
               >
                 {label}
@@ -131,26 +126,22 @@ export function AgentePanel({ contact, interactions }: Props) {
             value={contexto}
             onChange={e => setContexto(e.target.value)}
             placeholder="Contexto adicional — ex: cliente mencionou sócio, orçamento apertado, prazo urgente..."
-            className="flex-1 min-h-[72px] text-sm rounded-lg px-3 py-2.5 resize-none focus:outline-none transition-colors placeholder:text-[#3A3355]"
+            className="flex-1 min-h-[72px] text-sm rounded-lg px-3 py-2.5 resize-none focus:outline-none transition-colors"
             style={{
-              backgroundColor: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(91,33,182,0.2)',
-              color: '#E8E9F4',
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              color: '#E8E8E4',
             }}
-            onFocus={e => (e.target.style.borderColor = 'rgba(139,92,246,0.5)')}
-            onBlur={e => (e.target.style.borderColor = 'rgba(91,33,182,0.2)')}
+            onFocus={e => (e.target.style.borderColor = 'rgba(255,255,255,0.2)')}
+            onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.08)')}
           />
           <button
             onClick={gerar}
             disabled={loading}
-            className="flex-shrink-0 h-10 px-5 rounded-lg text-sm font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
-            style={{
-              background: loading ? '#3B2070' : 'linear-gradient(135deg, #5B21B6, #7C3AED)',
-              color: '#fff',
-              boxShadow: loading ? 'none' : '0 2px 12px rgba(91,33,182,0.4)',
-            }}
+            className="flex-shrink-0 h-10 px-5 rounded-lg text-sm font-semibold transition-all disabled:opacity-40 whitespace-nowrap"
+            style={{ backgroundColor: '#FFFFFF', color: '#1A1A18' }}
           >
-            {loading ? 'Gerando...' : 'Gerar sugestão →'}
+            {loading ? 'Gerando...' : 'Gerar →'}
           </button>
         </div>
 
@@ -159,14 +150,14 @@ export function AgentePanel({ contact, interactions }: Props) {
           <div
             className="rounded-lg"
             style={{
-              backgroundColor: 'rgba(139,92,246,0.06)',
-              border: '1px solid rgba(139,92,246,0.2)',
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.1)',
             }}
           >
             <div className="flex items-start justify-between gap-3 p-4">
               <p
                 className="text-sm leading-relaxed whitespace-pre-wrap flex-1"
-                style={{ color: '#D4D0F0' }}
+                style={{ color: '#E8E8E4' }}
               >
                 {sugestao}
               </p>
@@ -179,9 +170,9 @@ export function AgentePanel({ contact, interactions }: Props) {
                   color: '#34D399',
                   border: '1px solid rgba(52,211,153,0.3)',
                 } : {
-                  backgroundColor: 'rgba(139,92,246,0.15)',
-                  color: '#A78BFA',
-                  border: '1px solid rgba(139,92,246,0.25)',
+                  backgroundColor: 'rgba(255,255,255,0.08)',
+                  color: '#888888',
+                  border: '1px solid rgba(255,255,255,0.08)',
                 }}
               >
                 {copiado ? <Check size={13} /> : <Copy size={13} />}

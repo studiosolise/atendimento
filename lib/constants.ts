@@ -12,14 +12,14 @@ export const STATUS_LABELS: Record<LeadStatus, string> = {
 }
 
 export const STATUS_COLORS: Record<LeadStatus, string> = {
-  novo_lead: 'bg-blue-500/10 text-blue-400 border-blue-500/25',
-  contato_feito: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/25',
-  qualificado: 'bg-violet-500/10 text-violet-400 border-violet-500/25',
-  proposta_enviada: 'bg-orange-500/10 text-orange-400 border-orange-500/25',
-  negociacao: 'bg-amber-500/10 text-amber-400 border-amber-500/25',
-  fechado: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25',
-  perdido: 'bg-red-500/10 text-red-400 border-red-500/25',
-  frio: 'bg-zinc-700/20 text-zinc-500 border-zinc-600/25',
+  novo_lead: 'bg-blue-50 text-blue-700 border-blue-200',
+  contato_feito: 'bg-cyan-50 text-cyan-700 border-cyan-200',
+  qualificado: 'bg-violet-50 text-violet-700 border-violet-200',
+  proposta_enviada: 'bg-orange-50 text-orange-700 border-orange-200',
+  negociacao: 'bg-amber-50 text-amber-700 border-amber-200',
+  fechado: 'bg-green-50 text-green-700 border-green-200',
+  perdido: 'bg-red-50 text-red-700 border-red-200',
+  frio: 'bg-gray-100 text-gray-500 border-gray-200',
 }
 
 export const PIPELINE_COLUMNS: LeadStatus[] = [
@@ -38,14 +38,14 @@ export const PIPELINE_COLUMN_COLORS: Record<LeadStatus, {
   bgColor: string
   borderColor: string
 }> = {
-  novo_lead:        { text: 'text-blue-400',    dotColor: '#3B82F6', bgColor: 'rgba(59,130,246,0.07)',   borderColor: 'rgba(59,130,246,0.2)' },
-  contato_feito:    { text: 'text-cyan-400',    dotColor: '#06B6D4', bgColor: 'rgba(6,182,212,0.07)',    borderColor: 'rgba(6,182,212,0.2)' },
-  qualificado:      { text: 'text-violet-400',  dotColor: '#8B5CF6', bgColor: 'rgba(139,92,246,0.07)',   borderColor: 'rgba(139,92,246,0.2)' },
-  proposta_enviada: { text: 'text-orange-400',  dotColor: '#F97316', bgColor: 'rgba(249,115,22,0.07)',   borderColor: 'rgba(249,115,22,0.2)' },
-  negociacao:       { text: 'text-amber-400',   dotColor: '#F59E0B', bgColor: 'rgba(245,158,11,0.07)',   borderColor: 'rgba(245,158,11,0.2)' },
-  fechado:          { text: 'text-emerald-400', dotColor: '#10B981', bgColor: 'rgba(16,185,129,0.07)',   borderColor: 'rgba(16,185,129,0.2)' },
-  perdido:          { text: 'text-red-400',     dotColor: '#EF4444', bgColor: 'rgba(239,68,68,0.07)',    borderColor: 'rgba(239,68,68,0.2)' },
-  frio:             { text: 'text-zinc-500',    dotColor: '#71717A', bgColor: 'rgba(113,113,122,0.05)',  borderColor: 'rgba(113,113,122,0.15)' },
+  novo_lead:        { text: 'text-blue-700',    dotColor: '#3B82F6', bgColor: 'rgba(59,130,246,0.06)',   borderColor: 'rgba(59,130,246,0.18)' },
+  contato_feito:    { text: 'text-cyan-700',    dotColor: '#0891B2', bgColor: 'rgba(8,145,178,0.06)',    borderColor: 'rgba(8,145,178,0.18)' },
+  qualificado:      { text: 'text-violet-700',  dotColor: '#7C3AED', bgColor: 'rgba(124,58,237,0.05)',   borderColor: 'rgba(124,58,237,0.15)' },
+  proposta_enviada: { text: 'text-orange-700',  dotColor: '#EA580C', bgColor: 'rgba(234,88,12,0.06)',    borderColor: 'rgba(234,88,12,0.18)' },
+  negociacao:       { text: 'text-amber-700',   dotColor: '#D97706', bgColor: 'rgba(217,119,6,0.06)',    borderColor: 'rgba(217,119,6,0.18)' },
+  fechado:          { text: 'text-emerald-700', dotColor: '#059669', bgColor: 'rgba(5,150,105,0.06)',    borderColor: 'rgba(5,150,105,0.18)' },
+  perdido:          { text: 'text-red-700',     dotColor: '#DC2626', bgColor: 'rgba(220,38,38,0.06)',    borderColor: 'rgba(220,38,38,0.18)' },
+  frio:             { text: 'text-gray-500',    dotColor: '#9CA3AF', bgColor: 'rgba(156,163,175,0.08)',  borderColor: 'rgba(156,163,175,0.2)' },
 }
 
 export const SERVICE_LABELS: Record<ServiceType, string> = {
@@ -72,13 +72,13 @@ export const PROJECT_STATUS_LABELS: Record<ProjectStatus, string> = {
 }
 
 export const PROJECT_STATUS_COLORS: Record<ProjectStatus, string> = {
-  contrato: 'bg-zinc-700/20 text-zinc-400 border-zinc-600/25',
-  briefing: 'bg-blue-500/10 text-blue-400 border-blue-500/25',
-  alinhamento: 'bg-violet-500/10 text-violet-400 border-violet-500/25',
-  desenvolvimento: 'bg-amber-500/10 text-amber-400 border-amber-500/25',
-  apresentacao: 'bg-orange-500/10 text-orange-400 border-orange-500/25',
-  aprovacao: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25',
-  entregue: 'bg-green-500/10 text-green-400 border-green-500/25',
+  contrato: 'bg-gray-100 text-gray-600 border-gray-200',
+  briefing: 'bg-blue-50 text-blue-700 border-blue-200',
+  alinhamento: 'bg-violet-50 text-violet-700 border-violet-200',
+  desenvolvimento: 'bg-amber-50 text-amber-700 border-amber-200',
+  apresentacao: 'bg-orange-50 text-orange-700 border-orange-200',
+  aprovacao: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+  entregue: 'bg-green-50 text-green-700 border-green-200',
 }
 
 export const PROJECT_FUNNEL: ProjectStatus[] = [

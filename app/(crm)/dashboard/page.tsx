@@ -4,15 +4,8 @@ import { LeadStatus, ProjectStatus } from '@/types'
 import Link from 'next/link'
 import { isToday, isPast } from 'date-fns'
 
-const S = {
-  page: { color: '#E8E9F4' },
-  label: { color: '#4A4B6A', letterSpacing: '0.14em' },
-  card: { backgroundColor: '#111218', border: '1px solid #1E1F2E', borderRadius: '10px' },
-  cardValue: { color: '#E8E9F4' },
-  cardLabel: { color: '#5A5C7E' },
-  barBg: { backgroundColor: '#1A1B2E' },
-  barFill: { background: 'linear-gradient(90deg, #5B21B6, #7C3AED)' },
-}
+const card = { backgroundColor: '#FFFFFF', border: '1px solid #E5E5E8', borderRadius: '10px' }
+const labelStyle = { color: '#AAAAAA', letterSpacing: '0.14em' }
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -57,108 +50,104 @@ export default async function DashboardPage() {
   return (
     <div className="p-8 max-w-5xl">
       <div className="mb-8">
-        <p className="text-[10px] font-semibold uppercase mb-1" style={S.label}>Visão geral</p>
-        <h1 className="text-2xl font-semibold tracking-tight" style={S.page}>Dashboard</h1>
+        <p className="text-[10px] font-semibold uppercase mb-1" style={labelStyle}>Visão geral</p>
+        <h1 className="text-2xl font-semibold tracking-tight" style={{ color: '#1A1A18' }}>Dashboard</h1>
       </div>
 
-      <p className="text-[10px] font-semibold uppercase mb-3" style={S.label}>Leads</p>
+      <p className="text-[10px] font-semibold uppercase mb-3" style={labelStyle}>Leads</p>
       <div className="grid grid-cols-4 gap-3 mb-6">
-        <div className="p-5" style={S.card}>
-          <p className="text-xs mb-2" style={S.cardLabel}>Total de leads</p>
-          <p className="text-3xl font-semibold" style={S.cardValue}>{total}</p>
+        <div className="p-5" style={card}>
+          <p className="text-xs mb-2" style={{ color: '#AAAAAA' }}>Total de leads</p>
+          <p className="text-3xl font-semibold" style={{ color: '#1A1A18' }}>{total}</p>
         </div>
-        <div className="p-5" style={S.card}>
-          <p className="text-xs mb-2" style={S.cardLabel}>Em aberto</p>
-          <p className="text-3xl font-semibold" style={S.cardValue}>{ativos}</p>
+        <div className="p-5" style={card}>
+          <p className="text-xs mb-2" style={{ color: '#AAAAAA' }}>Em aberto</p>
+          <p className="text-3xl font-semibold" style={{ color: '#1A1A18' }}>{ativos}</p>
         </div>
-        <div className="p-5" style={S.card}>
-          <p className="text-xs mb-2" style={S.cardLabel}>Fechados</p>
-          <p className="text-3xl font-semibold" style={{ color: '#34D399' }}>{fechados}</p>
+        <div className="p-5" style={card}>
+          <p className="text-xs mb-2" style={{ color: '#AAAAAA' }}>Fechados</p>
+          <p className="text-3xl font-semibold" style={{ color: '#059669' }}>{fechados}</p>
         </div>
         <Link
           href="/followups"
           className="p-5 block transition-all group"
-          style={{ ...S.card, ...(followupsHoje > 0 ? { borderColor: 'rgba(249,115,22,0.4)' } : {}) }}
+          style={{ ...card, ...(followupsHoje > 0 ? { borderColor: '#FCA5A5' } : {}) }}
         >
-          <p className="text-xs mb-2" style={S.cardLabel}>Follow-ups hoje</p>
-          <p className="text-3xl font-semibold" style={{ color: followupsHoje > 0 ? '#FB923C' : '#2A2B3E' }}>
+          <p className="text-xs mb-2" style={{ color: '#AAAAAA' }}>Follow-ups hoje</p>
+          <p className="text-3xl font-semibold" style={{ color: followupsHoje > 0 ? '#DC2626' : '#E5E5E8' }}>
             {followupsHoje}
           </p>
           {followupsHoje > 0 && (
-            <p className="text-[10px] mt-1.5 transition-colors group-hover:text-white" style={{ color: '#5A5C7E' }}>
+            <p className="text-[10px] mt-1.5 transition-colors group-hover:text-[#1A1A18]" style={{ color: '#AAAAAA' }}>
               Ver agenda →
             </p>
           )}
         </Link>
       </div>
 
-      <p className="text-[10px] font-semibold uppercase mb-3" style={S.label}>Projetos</p>
+      <p className="text-[10px] font-semibold uppercase mb-3" style={labelStyle}>Projetos</p>
       <div className="grid grid-cols-2 gap-3 mb-8">
-        <Link
-          href="/projetos"
-          className="p-5 block transition-all group"
-          style={S.card}
-        >
-          <p className="text-xs mb-2" style={S.cardLabel}>Em andamento</p>
-          <p className="text-3xl font-semibold" style={{ color: projetosAtivos > 0 ? '#A78BFA' : '#2A2B3E' }}>
+        <Link href="/projetos" className="p-5 block transition-all group" style={card}>
+          <p className="text-xs mb-2" style={{ color: '#AAAAAA' }}>Em andamento</p>
+          <p className="text-3xl font-semibold" style={{ color: projetosAtivos > 0 ? '#1A1A18' : '#E5E5E8' }}>
             {projetosAtivos}
           </p>
           {projetosAtivos > 0 && (
-            <p className="text-[10px] mt-1.5 transition-colors group-hover:text-white" style={{ color: '#5A5C7E' }}>
+            <p className="text-[10px] mt-1.5 transition-colors group-hover:text-[#1A1A18]" style={{ color: '#AAAAAA' }}>
               Ver projetos →
             </p>
           )}
         </Link>
-        <div className="p-5" style={S.card}>
-          <p className="text-xs mb-2" style={S.cardLabel}>Faturamento previsto</p>
-          <p className="text-2xl font-semibold" style={{ color: faturamentoPrevisto > 0 ? '#34D399' : '#2A2B3E' }}>
+        <div className="p-5" style={card}>
+          <p className="text-xs mb-2" style={{ color: '#AAAAAA' }}>Faturamento previsto</p>
+          <p className="text-2xl font-semibold" style={{ color: faturamentoPrevisto > 0 ? '#1A1A18' : '#E5E5E8' }}>
             {faturamentoPrevisto > 0
               ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(faturamentoPrevisto)
               : 'R$ 0'}
           </p>
-          <p className="text-[10px] mt-1" style={{ color: '#3A3C55' }}>projetos ativos com valor definido</p>
+          <p className="text-[10px] mt-1" style={{ color: '#CCCCCC' }}>projetos ativos com valor definido</p>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        <div className="p-5" style={S.card}>
-          <p className="text-sm font-semibold mb-4" style={S.page}>Leads por etapa</p>
+        <div className="p-5" style={card}>
+          <p className="text-sm font-semibold mb-4" style={{ color: '#1A1A18' }}>Leads por etapa</p>
           {byStatus.length === 0 ? (
-            <p className="text-sm" style={S.cardLabel}>Nenhum lead cadastrado.</p>
+            <p className="text-sm" style={{ color: '#AAAAAA' }}>Nenhum lead cadastrado.</p>
           ) : (
             <div className="space-y-3">
               {byStatus.map(({ key, label, count }) => (
                 <div key={key} className="flex items-center gap-3">
-                  <span className="text-sm w-36 truncate" style={{ color: '#7273A0' }}>{label}</span>
-                  <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={S.barBg}>
+                  <span className="text-sm w-36 truncate" style={{ color: '#666666' }}>{label}</span>
+                  <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: '#F1F1F3' }}>
                     <div
-                      className="h-full rounded-full transition-all"
-                      style={{ ...S.barFill, width: total ? `${(count / total) * 100}%` : '0%' }}
+                      className="h-full rounded-full"
+                      style={{ backgroundColor: '#1A1A18', width: total ? `${(count / total) * 100}%` : '0%' }}
                     />
                   </div>
-                  <span className="text-sm font-medium w-5 text-right" style={S.cardValue}>{count}</span>
+                  <span className="text-sm font-medium w-5 text-right" style={{ color: '#1A1A18' }}>{count}</span>
                 </div>
               ))}
             </div>
           )}
         </div>
 
-        <div className="p-5" style={S.card}>
-          <p className="text-sm font-semibold mb-4" style={S.page}>Projetos por etapa</p>
+        <div className="p-5" style={card}>
+          <p className="text-sm font-semibold mb-4" style={{ color: '#1A1A18' }}>Projetos por etapa</p>
           {projectsByStatus.length === 0 ? (
-            <p className="text-sm" style={S.cardLabel}>Nenhum projeto ainda.</p>
+            <p className="text-sm" style={{ color: '#AAAAAA' }}>Nenhum projeto ainda.</p>
           ) : (
             <div className="space-y-3">
               {projectsByStatus.map(({ key, label, count }) => (
                 <div key={key} className="flex items-center gap-3">
-                  <span className="text-sm w-36 truncate" style={{ color: '#7273A0' }}>{label}</span>
-                  <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={S.barBg}>
+                  <span className="text-sm w-36 truncate" style={{ color: '#666666' }}>{label}</span>
+                  <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: '#F1F1F3' }}>
                     <div
-                      className="h-full rounded-full transition-all"
-                      style={{ ...S.barFill, width: (projects?.length ?? 0) ? `${(count / (projects?.length ?? 1)) * 100}%` : '0%' }}
+                      className="h-full rounded-full"
+                      style={{ backgroundColor: '#1A1A18', width: (projects?.length ?? 0) ? `${(count / (projects?.length ?? 1)) * 100}%` : '0%' }}
                     />
                   </div>
-                  <span className="text-sm font-medium w-5 text-right" style={S.cardValue}>{count}</span>
+                  <span className="text-sm font-medium w-5 text-right" style={{ color: '#1A1A18' }}>{count}</span>
                 </div>
               ))}
             </div>

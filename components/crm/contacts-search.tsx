@@ -29,19 +29,15 @@ export function ContactsSearch() {
   return (
     <div className="flex items-center gap-3 mb-5 flex-wrap">
       <div className="relative">
-        <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: '#4A4B6A' }} />
+        <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: '#CCCCCC' }} />
         <input
           placeholder="Buscar por nome, e-mail, telefone..."
           defaultValue={q}
           onChange={e => update('q', e.target.value)}
-          className="h-9 rounded-lg pl-8 pr-3 text-sm w-72 focus:outline-none transition-colors"
-          style={{
-            backgroundColor: '#111218',
-            border: '1px solid #1E1F2E',
-            color: '#E8E9F4',
-          }}
-          onFocus={e => (e.target.style.borderColor = '#5B21B6')}
-          onBlur={e => (e.target.style.borderColor = '#1E1F2E')}
+          className="h-9 rounded-lg pl-8 pr-3 text-sm w-72 bg-white focus:outline-none transition-colors"
+          style={{ border: '1px solid #E5E5E8', color: '#1A1A18' }}
+          onFocus={e => (e.target.style.borderColor = '#1A1A18')}
+          onBlur={e => (e.target.style.borderColor = '#E5E5E8')}
         />
       </div>
       <div className="flex gap-1 flex-wrap">
@@ -51,13 +47,13 @@ export function ContactsSearch() {
             onClick={() => update('status', key)}
             className="text-xs px-3 py-1.5 rounded-md transition-all whitespace-nowrap"
             style={status === key ? {
-              backgroundColor: 'rgba(139,92,246,0.15)',
-              color: '#C4B5FD',
-              border: '1px solid rgba(139,92,246,0.3)',
+              backgroundColor: '#1A1A18',
+              color: '#FFFFFF',
+              border: '1px solid #1A1A18',
             } : {
-              backgroundColor: '#111218',
-              color: '#5A5C7E',
-              border: '1px solid #1E1F2E',
+              backgroundColor: '#FFFFFF',
+              color: '#666666',
+              border: '1px solid #E5E5E8',
             }}
           >
             {label}

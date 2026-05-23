@@ -29,23 +29,23 @@ export default async function ProjetoPage({ params }: { params: Promise<{ id: st
     <div className="p-8 max-w-5xl">
       <Link
         href="/projetos"
-        className="inline-flex items-center gap-2 text-sm mb-6 transition-colors hover:opacity-80"
-        style={{ color: '#5A5C7E' }}
+        className="inline-flex items-center gap-2 text-sm mb-6 transition-colors hover:opacity-60"
+        style={{ color: '#AAAAAA' }}
       >
         <ArrowLeft size={14} />
         Projetos
       </Link>
 
       <div className="mb-8">
-        <p className="text-[10px] font-semibold uppercase mb-1" style={{ color: '#4A4B6A', letterSpacing: '0.14em' }}>
+        <p className="text-[10px] font-semibold uppercase mb-1" style={{ color: '#AAAAAA', letterSpacing: '0.14em' }}>
           Projeto
         </p>
-        <h1 className="text-2xl font-semibold tracking-tight" style={{ color: '#E8E9F4' }}>{project.title}</h1>
+        <h1 className="text-2xl font-semibold tracking-tight" style={{ color: '#1A1A18' }}>{project.title}</h1>
         {project.contacts && (
           <Link
             href={`/contatos/${project.contacts.id}`}
-            className="text-sm mt-1 inline-block transition-colors hover:opacity-80"
-            style={{ color: '#7273A0' }}
+            className="text-sm mt-1 inline-block transition-colors hover:opacity-60"
+            style={{ color: '#AAAAAA' }}
           >
             {project.contacts.name} →
           </Link>
@@ -55,9 +55,9 @@ export default async function ProjetoPage({ params }: { params: Promise<{ id: st
       {/* Funil de etapas */}
       <div
         className="p-5 mb-6 rounded-xl"
-        style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
+        style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E5E8' }}
       >
-        <p className="text-[10px] font-semibold uppercase mb-4" style={{ color: '#4A4B6A', letterSpacing: '0.12em' }}>
+        <p className="text-[10px] font-semibold uppercase mb-4" style={{ color: '#AAAAAA', letterSpacing: '0.12em' }}>
           Etapa atual
         </p>
         <div className="flex items-center gap-0">
@@ -71,16 +71,17 @@ export default async function ProjetoPage({ params }: { params: Promise<{ id: st
                     className="w-full h-1.5 rounded-sm mb-2"
                     style={{
                       background: isDone
-                        ? 'linear-gradient(90deg, #5B21B6, #7C3AED)'
+                        ? '#1A1A18'
                         : isActive
-                        ? '#7C3AED'
-                        : '#1A1B28',
+                        ? '#1A1A18'
+                        : '#E5E5E8',
+                      opacity: isDone ? 0.35 : 1,
                     }}
                   />
                   <span
                     className="text-[10px] text-center truncate w-full px-0.5"
                     style={{
-                      color: isActive ? '#C4B5FD' : isDone ? '#5A5C7E' : '#2A2B3D',
+                      color: isActive ? '#1A1A18' : isDone ? '#AAAAAA' : '#CCCCCC',
                       fontWeight: isActive ? 600 : 400,
                     }}
                   >
@@ -101,23 +102,23 @@ export default async function ProjetoPage({ params }: { params: Promise<{ id: st
         <div className="space-y-4">
           <div
             className="p-5 space-y-3 rounded-xl"
-            style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
+            style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E5E8' }}
           >
-            <p className="text-[10px] font-semibold uppercase mb-3" style={{ color: '#4A4B6A', letterSpacing: '0.12em' }}>
+            <p className="text-[10px] font-semibold uppercase mb-3" style={{ color: '#AAAAAA', letterSpacing: '0.12em' }}>
               Dados
             </p>
 
             {project.service && (
               <div>
-                <p className="text-[10px] mb-0.5" style={{ color: '#3A3C55' }}>Serviço</p>
-                <p className="text-sm" style={{ color: '#E8E9F4' }}>{SERVICE_LABELS[project.service as ServiceType]}</p>
+                <p className="text-[10px] mb-0.5" style={{ color: '#CCCCCC' }}>Serviço</p>
+                <p className="text-sm" style={{ color: '#1A1A18' }}>{SERVICE_LABELS[project.service as ServiceType]}</p>
               </div>
             )}
 
             {project.value && (
               <div>
-                <p className="text-[10px] mb-0.5" style={{ color: '#3A3C55' }}>Valor</p>
-                <p className="text-sm font-medium" style={{ color: '#A78BFA' }}>
+                <p className="text-[10px] mb-0.5" style={{ color: '#CCCCCC' }}>Valor</p>
+                <p className="text-sm font-medium" style={{ color: '#1A1A18' }}>
                   {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(project.value)}
                 </p>
               </div>
@@ -125,8 +126,8 @@ export default async function ProjetoPage({ params }: { params: Promise<{ id: st
 
             {project.deadline && (
               <div>
-                <p className="text-[10px] mb-0.5" style={{ color: '#3A3C55' }}>Prazo</p>
-                <p className="text-sm" style={{ color: '#E8E9F4' }}>
+                <p className="text-[10px] mb-0.5" style={{ color: '#CCCCCC' }}>Prazo</p>
+                <p className="text-sm" style={{ color: '#1A1A18' }}>
                   {format(new Date(project.deadline + 'T12:00:00'), "d 'de' MMMM 'de' yyyy", { locale: ptBR })}
                 </p>
               </div>
@@ -134,14 +135,14 @@ export default async function ProjetoPage({ params }: { params: Promise<{ id: st
 
             {project.notes && (
               <div>
-                <p className="text-[10px] mb-0.5" style={{ color: '#3A3C55' }}>Observações</p>
-                <p className="text-sm whitespace-pre-wrap leading-relaxed" style={{ color: '#B0B2D0' }}>{project.notes}</p>
+                <p className="text-[10px] mb-0.5" style={{ color: '#CCCCCC' }}>Observações</p>
+                <p className="text-sm whitespace-pre-wrap leading-relaxed" style={{ color: '#666666' }}>{project.notes}</p>
               </div>
             )}
 
             <div>
-              <p className="text-[10px] mb-0.5" style={{ color: '#3A3C55' }}>Criado em</p>
-              <p className="text-sm" style={{ color: '#7273A0' }}>
+              <p className="text-[10px] mb-0.5" style={{ color: '#CCCCCC' }}>Criado em</p>
+              <p className="text-sm" style={{ color: '#AAAAAA' }}>
                 {format(new Date(project.created_at), "d 'de' MMM 'de' yyyy", { locale: ptBR })}
               </p>
             </div>
