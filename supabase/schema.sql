@@ -12,7 +12,7 @@ create table if not exists public.contacts (
     'material_avulso','apresentacao','outro'
   )),
   status text not null default 'novo_lead' check (status in (
-    'novo_lead','contato_feito','qualificado',
+    'novo_lead','contato_feito','reuniao','qualificado',
     'proposta_enviada','negociacao','fechado','perdido','frio'
   )),
   source text check (source in ('instagram_ads','whatsapp_direto','indicacao','outro')),

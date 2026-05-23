@@ -3,6 +3,7 @@ import { LeadStatus, ProjectStatus, ServiceType } from '@/types'
 export const STATUS_LABELS: Record<LeadStatus, string> = {
   novo_lead: 'Novo Lead',
   contato_feito: 'Contato Feito',
+  reuniao: 'Reunião',
   qualificado: 'Qualificado',
   proposta_enviada: 'Proposta Enviada',
   negociacao: 'Negociação',
@@ -14,9 +15,10 @@ export const STATUS_LABELS: Record<LeadStatus, string> = {
 export const STATUS_COLORS: Record<LeadStatus, string> = {
   novo_lead: 'bg-blue-50 text-blue-700 border-blue-200',
   contato_feito: 'bg-cyan-50 text-cyan-700 border-cyan-200',
+  reuniao: 'bg-teal-50 text-teal-700 border-teal-200',
   qualificado: 'bg-violet-50 text-violet-700 border-violet-200',
-  proposta_enviada: 'bg-orange-50 text-orange-700 border-orange-200',
-  negociacao: 'bg-amber-50 text-amber-700 border-amber-200',
+  proposta_enviada: 'bg-rose-50 text-rose-700 border-rose-200',
+  negociacao: 'bg-indigo-50 text-indigo-700 border-indigo-200',
   fechado: 'bg-green-50 text-green-700 border-green-200',
   perdido: 'bg-red-50 text-red-700 border-red-200',
   frio: 'bg-gray-100 text-gray-500 border-gray-200',
@@ -25,6 +27,7 @@ export const STATUS_COLORS: Record<LeadStatus, string> = {
 export const PIPELINE_COLUMNS: LeadStatus[] = [
   'novo_lead',
   'contato_feito',
+  'reuniao',
   'qualificado',
   'proposta_enviada',
   'negociacao',
@@ -40,9 +43,10 @@ export const PIPELINE_COLUMN_COLORS: Record<LeadStatus, {
 }> = {
   novo_lead:        { text: 'text-blue-700',    dotColor: '#3B82F6', bgColor: 'rgba(59,130,246,0.06)',   borderColor: 'rgba(59,130,246,0.18)' },
   contato_feito:    { text: 'text-cyan-700',    dotColor: '#0891B2', bgColor: 'rgba(8,145,178,0.06)',    borderColor: 'rgba(8,145,178,0.18)' },
+  reuniao:          { text: 'text-teal-700',    dotColor: '#0D9488', bgColor: 'rgba(13,148,136,0.06)',   borderColor: 'rgba(13,148,136,0.18)' },
   qualificado:      { text: 'text-violet-700',  dotColor: '#7C3AED', bgColor: 'rgba(124,58,237,0.05)',   borderColor: 'rgba(124,58,237,0.15)' },
-  proposta_enviada: { text: 'text-orange-700',  dotColor: '#EA580C', bgColor: 'rgba(234,88,12,0.06)',    borderColor: 'rgba(234,88,12,0.18)' },
-  negociacao:       { text: 'text-amber-700',   dotColor: '#D97706', bgColor: 'rgba(217,119,6,0.06)',    borderColor: 'rgba(217,119,6,0.18)' },
+  proposta_enviada: { text: 'text-rose-700',    dotColor: '#E11D48', bgColor: 'rgba(225,29,72,0.06)',    borderColor: 'rgba(225,29,72,0.18)' },
+  negociacao:       { text: 'text-indigo-700',  dotColor: '#4F46E5', bgColor: 'rgba(79,70,229,0.06)',    borderColor: 'rgba(79,70,229,0.18)' },
   fechado:          { text: 'text-emerald-700', dotColor: '#059669', bgColor: 'rgba(5,150,105,0.06)',    borderColor: 'rgba(5,150,105,0.18)' },
   perdido:          { text: 'text-red-700',     dotColor: '#DC2626', bgColor: 'rgba(220,38,38,0.06)',    borderColor: 'rgba(220,38,38,0.18)' },
   frio:             { text: 'text-gray-500',    dotColor: '#9CA3AF', bgColor: 'rgba(156,163,175,0.08)',  borderColor: 'rgba(156,163,175,0.2)' },

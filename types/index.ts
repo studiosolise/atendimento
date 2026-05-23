@@ -1,6 +1,7 @@
 export type LeadStatus =
   | 'novo_lead'
   | 'contato_feito'
+  | 'reuniao'
   | 'qualificado'
   | 'proposta_enviada'
   | 'negociacao'
