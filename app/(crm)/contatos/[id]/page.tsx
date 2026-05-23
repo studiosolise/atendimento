@@ -10,6 +10,8 @@ import { ptBR } from 'date-fns/locale'
 import { InteractionForm } from './interaction-form'
 import { EditContactForm } from './edit-contact-form'
 import { AgentePanel } from './agente-panel'
+import { FollowupsPanel } from './followups-panel'
+import { Followup } from '@/types'
 
 export default async function ContatoPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -28,6 +30,12 @@ export default async function ContatoPage({ params }: { params: Promise<{ id: st
     .select('*')
     .eq('contact_id', id)
     .order('created_at', { ascending: false }) as { data: Interaction[] | null }
+
+  const { data: followups } = await supabase
+    .from('followups')
+    .select('*')
+    .eq('contact_id', id)
+    .order('scheduled_for', { ascending: true }) as { data: Followup[] | null }
 
   const INTERACTION_LABELS = {
     mensagem: 'Mensagem',
@@ -129,6 +137,8 @@ export default async function ContatoPage({ params }: { params: Promise<{ id: st
           </div>
 
           <EditContactForm contact={contact} />
+
+          <FollowupsPanel contactId={id} initial={followups ?? []} />
 
           <AgentePanel contact={contact} interactions={interactions ?? []} />
         </div>

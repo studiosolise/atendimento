@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, Users, KanbanSquare, LogOut } from 'lucide-react'
+import { LayoutDashboard, Users, KanbanSquare, Bell, LogOut } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
@@ -11,6 +11,7 @@ const nav = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/contatos', label: 'Contatos', icon: Users },
   { href: '/pipeline', label: 'Pipeline', icon: KanbanSquare },
+  { href: '/followups', label: 'Follow-ups', icon: Bell },
 ]
 
 export function Sidebar() {
