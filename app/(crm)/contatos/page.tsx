@@ -3,10 +3,12 @@ import Link from 'next/link'
 import { Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { StatusBadge } from '@/components/crm/status-badge'
+import { ContactsSearch } from '@/components/crm/contacts-search'
 import { SERVICE_LABELS } from '@/lib/constants'
 import { Contact } from '@/types'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
+import { Suspense } from 'react'
 
 export default async function ContatosPage({
   searchParams,
@@ -50,6 +52,10 @@ export default async function ContatosPage({
           </Button>
         </Link>
       </div>
+
+      <Suspense>
+        <ContactsSearch />
+      </Suspense>
 
       <div className="bg-white rounded-lg border border-[#E5E4E0] overflow-hidden">
         {filtered.length === 0 ? (
