@@ -9,6 +9,7 @@ import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { InteractionForm } from './interaction-form'
 import { EditContactForm } from './edit-contact-form'
+import { AgentePanel } from './agente-panel'
 
 export default async function ContatoPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -128,6 +129,8 @@ export default async function ContatoPage({ params }: { params: Promise<{ id: st
           </div>
 
           <EditContactForm contact={contact} />
+
+          <AgentePanel contact={contact} interactions={interactions ?? []} />
         </div>
       </div>
     </div>
