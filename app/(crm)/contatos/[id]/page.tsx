@@ -11,6 +11,7 @@ import { InteractionForm } from './interaction-form'
 import { EditContactForm } from './edit-contact-form'
 import { AgentePanel } from './agente-panel'
 import { FollowupsPanel } from './followups-panel'
+import { ProjectsPanel } from './projects-panel'
 import { Followup } from '@/types'
 
 export default async function ContatoPage({ params }: { params: Promise<{ id: string }> }) {
@@ -139,6 +140,10 @@ export default async function ContatoPage({ params }: { params: Promise<{ id: st
           <EditContactForm contact={contact} />
 
           <FollowupsPanel contactId={id} initial={followups ?? []} />
+
+          {contact.status === 'fechado' && (
+            <ProjectsPanel contactId={id} contactName={contact.name} />
+          )}
 
           <AgentePanel contact={contact} interactions={interactions ?? []} />
         </div>

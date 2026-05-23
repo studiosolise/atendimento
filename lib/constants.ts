@@ -1,4 +1,4 @@
-import { LeadStatus, ServiceType } from '@/types'
+import { LeadStatus, ProjectStatus, ServiceType } from '@/types'
 
 export const STATUS_LABELS: Record<LeadStatus, string> = {
   novo_lead: 'Novo Lead',
@@ -44,6 +44,31 @@ export const SERVICE_LABELS: Record<ServiceType, string> = {
   apresentacao: 'Apresentação',
   outro: 'Outro',
 }
+
+export const PROJECT_STATUS_LABELS: Record<ProjectStatus, string> = {
+  contrato: 'Contrato',
+  briefing: 'Briefing',
+  alinhamento: 'Alinhamento',
+  desenvolvimento: 'Desenvolvimento',
+  apresentacao: 'Apresentação',
+  aprovacao: 'Aprovação',
+  entregue: 'Entregue',
+}
+
+export const PROJECT_STATUS_COLORS: Record<ProjectStatus, string> = {
+  contrato: 'bg-slate-50 text-slate-600 border-slate-200',
+  briefing: 'bg-blue-50 text-blue-700 border-blue-200',
+  alinhamento: 'bg-purple-50 text-purple-700 border-purple-200',
+  desenvolvimento: 'bg-yellow-50 text-yellow-700 border-yellow-200',
+  apresentacao: 'bg-orange-50 text-orange-700 border-orange-200',
+  aprovacao: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+  entregue: 'bg-green-50 text-green-700 border-green-200',
+}
+
+export const PROJECT_FUNNEL: ProjectStatus[] = [
+  'contrato', 'briefing', 'alinhamento', 'desenvolvimento',
+  'apresentacao', 'aprovacao', 'entregue',
+]
 
 export const SERVICE_PRICES: Record<ServiceType, string> = {
   identidade_visual: 'R$ 1.370',

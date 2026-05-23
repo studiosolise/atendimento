@@ -57,3 +57,25 @@ export interface Followup {
   done: boolean
   created_at: string
 }
+
+export type ProjectStatus =
+  | 'contrato'
+  | 'briefing'
+  | 'alinhamento'
+  | 'desenvolvimento'
+  | 'apresentacao'
+  | 'aprovacao'
+  | 'entregue'
+
+export interface Project {
+  id: string
+  contact_id: string | null
+  title: string
+  service: ServiceType | null
+  status: ProjectStatus
+  value: number | null
+  deadline: string | null
+  notes: string | null
+  created_at: string
+  updated_at: string
+}
