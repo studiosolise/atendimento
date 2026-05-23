@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Contact, LeadStatus, ServiceType } from '@/types'
 import { STATUS_LABELS, SERVICE_LABELS } from '@/lib/constants'
+import { Trash2 } from 'lucide-react'
 
 const STATUSES = Object.entries(STATUS_LABELS) as [LeadStatus, string][]
 const SERVICES = Object.entries(SERVICE_LABELS) as [ServiceType, string][]
@@ -47,6 +48,13 @@ export function EditContactForm({ contact }: { contact: Contact }) {
   }
   const onBlur = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     e.target.style.borderColor = '#E5E5E8'
+  }
+
+  async function handleDelete() {
+    if (!confirm('Excluir este contato? O histórico e follow-ups serão removidos. Esta ação não pode ser desfeita.')) return
+    await supabase.from('contacts').delete().eq('id', contact.id)
+    router.push('/contatos')
+    router.refresh()
   }
 
   async function handleSave() {
@@ -163,6 +171,19 @@ export function EditContactForm({ contact }: { contact: Contact }) {
           style={{ color: '#AAAAAA', border: '1px solid #E5E5E8' }}
         >
           Cancelar
+        </button>
+      </div>
+
+      <div className="pt-3" style={{ borderTop: '1px solid #F0F0F0' }}>
+        <button
+          onClick={handleDelete}
+          className="flex items-center gap-1.5 text-xs transition-colors"
+          style={{ color: '#CCCCCC' }}
+          onMouseEnter={e => (e.currentTarget.style.color = '#DC2626')}
+          onMouseLeave={e => (e.currentTarget.style.color = '#CCCCCC')}
+        >
+          <Trash2 size={12} />
+          Excluir contato
         </button>
       </div>
     </div>
