@@ -26,34 +26,50 @@ export function Sidebar() {
   }
 
   return (
-    <aside className="w-56 min-h-screen bg-[#1A1A18] flex flex-col">
-      <div className="px-6 py-5 border-b border-white/10">
-        <p className="text-[10px] font-semibold tracking-widest uppercase text-white/40">Studio Solise</p>
-        <p className="text-sm font-semibold text-white mt-0.5">CRM</p>
+    <aside className="w-56 min-h-screen flex flex-col" style={{ backgroundColor: '#0D0E16', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
+      <div className="px-5 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        <p className="text-[10px] font-semibold tracking-[0.18em] uppercase mb-1" style={{ color: '#4A4B6A' }}>
+          Studio Solise
+        </p>
+        <p className="text-sm font-semibold tracking-tight" style={{ color: '#E8E9F4' }}>CRM</p>
       </div>
 
-      <nav className="flex-1 px-3 py-4 space-y-0.5">
-        {nav.map(({ href, label, icon: Icon }) => (
-          <Link
-            key={href}
-            href={href}
-            className={cn(
-              'flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors',
-              pathname === href || pathname.startsWith(href + '/')
-                ? 'bg-white/10 text-white'
-                : 'text-white/50 hover:text-white hover:bg-white/5'
-            )}
-          >
-            <Icon size={15} />
-            {label}
-          </Link>
-        ))}
+      <nav className="flex-1 px-2 py-3 space-y-0.5">
+        {nav.map(({ href, label, icon: Icon }) => {
+          const active = pathname === href || pathname.startsWith(href + '/')
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={cn(
+                'relative flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-all duration-150',
+                active
+                  ? 'font-medium'
+                  : 'hover:bg-white/5'
+              )}
+              style={active ? {
+                backgroundColor: 'rgba(139, 92, 246, 0.12)',
+                color: '#C4B5FD',
+              } : { color: '#5A5C7E' }}
+            >
+              {active && (
+                <span
+                  className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-r"
+                  style={{ backgroundColor: '#7C3AED' }}
+                />
+              )}
+              <Icon size={15} />
+              {label}
+            </Link>
+          )
+        })}
       </nav>
 
-      <div className="px-3 py-4 border-t border-white/10">
+      <div className="px-2 py-3" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-white/40 hover:text-white hover:bg-white/5 transition-colors w-full"
+          className="flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-all w-full hover:bg-white/5"
+          style={{ color: '#3A3C55' }}
         >
           <LogOut size={15} />
           Sair

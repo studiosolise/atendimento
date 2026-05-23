@@ -4,7 +4,7 @@ import { Project, ProjectStatus, ServiceType } from '@/types'
 import Link from 'next/link'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { FolderOpen, Plus } from 'lucide-react'
+import { FolderOpen } from 'lucide-react'
 import { NovoProjetoButton } from './novo-projeto-button'
 
 type ProjectWithContact = Project & { contacts: { name: string } | null }
@@ -24,23 +24,32 @@ export default async function ProjetosPage() {
     <div className="p-8 max-w-5xl">
       <div className="flex items-start justify-between mb-8">
         <div>
-          <p className="text-xs font-semibold tracking-widest uppercase text-[#888] mb-1">Produção</p>
-          <h1 className="text-2xl font-semibold text-[#1A1A18] tracking-tight">Projetos</h1>
+          <p className="text-[10px] font-semibold uppercase mb-1" style={{ color: '#4A4B6A', letterSpacing: '0.14em' }}>
+            Produção
+          </p>
+          <h1 className="text-2xl font-semibold tracking-tight" style={{ color: '#E8E9F4' }}>Projetos</h1>
         </div>
         <NovoProjetoButton />
       </div>
 
       {!projects?.length ? (
-        <div className="bg-white rounded-lg border border-[#E5E4E0] p-12 text-center">
-          <FolderOpen size={32} className="mx-auto text-[#C8C7C0] mb-3" />
-          <p className="text-sm text-[#888]">Nenhum projeto ainda.</p>
-          <p className="text-xs text-[#aaa] mt-1">Projetos aparecem quando um lead é fechado.</p>
+        <div
+          className="p-12 text-center rounded-xl"
+          style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
+        >
+          <FolderOpen size={32} className="mx-auto mb-3" style={{ color: '#2A2B3D' }} />
+          <p className="text-sm" style={{ color: '#5A5C7E' }}>Nenhum projeto ainda.</p>
+          <p className="text-xs mt-1" style={{ color: '#3A3C55' }}>
+            Projetos aparecem quando um lead é fechado.
+          </p>
         </div>
       ) : (
         <div className="space-y-8">
           {ativos.length > 0 && (
             <div>
-              <p className="text-xs font-semibold text-[#888] uppercase tracking-wider mb-3">Em andamento</p>
+              <p className="text-[10px] font-semibold uppercase mb-3" style={{ color: '#4A4B6A', letterSpacing: '0.12em' }}>
+                Em andamento
+              </p>
               <div className="space-y-2">
                 {ativos.map(project => (
                   <ProjectRow key={project.id} project={project} />
@@ -51,7 +60,9 @@ export default async function ProjetosPage() {
 
           {entregues.length > 0 && (
             <div>
-              <p className="text-xs font-semibold text-[#888] uppercase tracking-wider mb-3">Entregues</p>
+              <p className="text-[10px] font-semibold uppercase mb-3" style={{ color: '#4A4B6A', letterSpacing: '0.12em' }}>
+                Entregues
+              </p>
               <div className="space-y-2">
                 {entregues.map(project => (
                   <ProjectRow key={project.id} project={project} />
@@ -72,29 +83,30 @@ function ProjectRow({ project }: { project: ProjectWithContact }) {
   return (
     <Link
       href={`/projetos/${project.id}`}
-      className="flex items-center gap-4 bg-white rounded-lg border border-[#E5E4E0] px-5 py-4 hover:border-[#C8C7C0] transition-colors"
+      className="flex items-center gap-4 px-5 py-4 rounded-xl transition-all group hover:border-[#2A2B3D]"
+      style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
     >
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-[#1A1A18] truncate">{project.title}</p>
+        <p className="text-sm font-medium truncate" style={{ color: '#E8E9F4' }}>{project.title}</p>
         {project.contacts?.name && (
-          <p className="text-xs text-[#888] mt-0.5">{project.contacts.name}</p>
+          <p className="text-xs mt-0.5" style={{ color: '#5A5C7E' }}>{project.contacts.name}</p>
         )}
       </div>
 
       {project.service && (
-        <span className="text-xs text-[#888] hidden sm:block">
+        <span className="text-xs hidden sm:block" style={{ color: '#5A5C7E' }}>
           {SERVICE_LABELS[project.service as ServiceType]}
         </span>
       )}
 
       {project.value && (
-        <span className="text-sm font-medium text-[#1A1A18]">
+        <span className="text-sm font-medium" style={{ color: '#A78BFA' }}>
           {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(project.value)}
         </span>
       )}
 
       {project.deadline && (
-        <span className="text-xs text-[#888]">
+        <span className="text-xs" style={{ color: '#5A5C7E' }}>
           {format(new Date(project.deadline + 'T12:00:00'), "d MMM", { locale: ptBR })}
         </span>
       )}

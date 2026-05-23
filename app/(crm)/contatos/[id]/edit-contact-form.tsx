@@ -3,14 +3,18 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Contact, LeadStatus, ServiceType } from '@/types'
 import { STATUS_LABELS, SERVICE_LABELS } from '@/lib/constants'
 
 const STATUSES = Object.entries(STATUS_LABELS) as [LeadStatus, string][]
 const SERVICES = Object.entries(SERVICE_LABELS) as [ServiceType, string][]
+
+const inputStyle = {
+  backgroundColor: 'rgba(255,255,255,0.03)',
+  border: '1px solid #1E1F2E',
+  color: '#E8E9F4',
+  borderRadius: '8px',
+}
 
 export function EditContactForm({ contact }: { contact: Contact }) {
   const [open, setOpen] = useState(false)
@@ -56,7 +60,8 @@ export function EditContactForm({ contact }: { contact: Contact }) {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="w-full text-sm text-center py-2 text-[#888] hover:text-[#1A1A18] transition-colors border border-[#E5E4E0] rounded-lg bg-white"
+        className="w-full text-sm py-2 rounded-xl transition-all hover:opacity-80"
+        style={{ color: '#7273A0', border: '1px solid #1E1F2E', backgroundColor: '#111218' }}
       >
         Editar dados
       </button>
@@ -64,35 +69,52 @@ export function EditContactForm({ contact }: { contact: Contact }) {
   }
 
   return (
-    <div className="bg-white rounded-lg border border-[#E5E4E0] p-5 space-y-3">
-      <p className="text-xs font-semibold text-[#888] uppercase tracking-wider mb-1">Editar</p>
+    <div
+      className="p-4 space-y-3 rounded-xl"
+      style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
+    >
+      <p className="text-[10px] font-semibold uppercase mb-1" style={{ color: '#4A4B6A', letterSpacing: '0.12em' }}>
+        Editar
+      </p>
 
-      <div className="space-y-1.5">
-        <Label>Nome</Label>
-        <Input value={form.name} onChange={e => set('name', e.target.value)} />
-      </div>
-      <div className="space-y-1.5">
-        <Label>WhatsApp</Label>
-        <Input value={form.phone} onChange={e => set('phone', e.target.value)} />
-      </div>
-      <div className="space-y-1.5">
-        <Label>Status</Label>
+      {[
+        { label: 'Nome', field: 'name', value: form.name },
+        { label: 'WhatsApp', field: 'phone', value: form.phone },
+      ].map(({ label, field, value }) => (
+        <div key={field} className="space-y-1">
+          <label className="text-xs" style={{ color: '#5A5C7E' }}>{label}</label>
+          <input
+            value={value}
+            onChange={e => set(field, e.target.value)}
+            className="w-full h-8 px-3 text-sm focus:outline-none"
+            style={inputStyle}
+            onFocus={e => (e.target.style.borderColor = 'rgba(91,33,182,0.4)')}
+            onBlur={e => (e.target.style.borderColor = '#1E1F2E')}
+          />
+        </div>
+      ))}
+
+      <div className="space-y-1">
+        <label className="text-xs" style={{ color: '#5A5C7E' }}>Status</label>
         <select
           value={form.status}
           onChange={e => set('status', e.target.value)}
-          className="w-full h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"
+          className="w-full h-8 px-3 text-sm focus:outline-none"
+          style={{ ...inputStyle, appearance: 'none' }}
         >
           {STATUSES.map(([key, label]) => (
             <option key={key} value={key}>{label}</option>
           ))}
         </select>
       </div>
-      <div className="space-y-1.5">
-        <Label>Serviço</Label>
+
+      <div className="space-y-1">
+        <label className="text-xs" style={{ color: '#5A5C7E' }}>Serviço</label>
         <select
           value={form.service}
           onChange={e => set('service', e.target.value)}
-          className="w-full h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"
+          className="w-full h-8 px-3 text-sm focus:outline-none"
+          style={{ ...inputStyle, appearance: 'none' }}
         >
           <option value="">—</option>
           {SERVICES.map(([key, label]) => (
@@ -100,22 +122,35 @@ export function EditContactForm({ contact }: { contact: Contact }) {
           ))}
         </select>
       </div>
-      <div className="space-y-1.5">
-        <Label>Observações</Label>
+
+      <div className="space-y-1">
+        <label className="text-xs" style={{ color: '#5A5C7E' }}>Observações</label>
         <textarea
           value={form.notes}
           onChange={e => set('notes', e.target.value)}
-          className="w-full min-h-[60px] rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm resize-none"
+          className="w-full min-h-[60px] px-3 py-2 text-sm resize-none focus:outline-none"
+          style={inputStyle}
+          onFocus={e => (e.target.style.borderColor = 'rgba(91,33,182,0.4)')}
+          onBlur={e => (e.target.style.borderColor = '#1E1F2E')}
         />
       </div>
 
       <div className="flex gap-2 pt-1">
-        <Button size="sm" onClick={handleSave} disabled={loading}>
+        <button
+          onClick={handleSave}
+          disabled={loading}
+          className="h-8 px-4 rounded-lg text-xs font-medium transition-all disabled:opacity-40"
+          style={{ background: 'linear-gradient(135deg, #5B21B6, #7C3AED)', color: '#fff' }}
+        >
           {loading ? 'Salvando...' : 'Salvar'}
-        </Button>
-        <Button size="sm" variant="ghost" onClick={() => setOpen(false)}>
+        </button>
+        <button
+          onClick={() => setOpen(false)}
+          className="h-8 px-4 rounded-lg text-xs transition-all hover:bg-white/5"
+          style={{ color: '#5A5C7E', border: '1px solid #1E1F2E' }}
+        >
           Cancelar
-        </Button>
+        </button>
       </div>
     </div>
   )

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
-import { PIPELINE_COLUMNS, STATUS_LABELS, STATUS_COLORS, SERVICE_LABELS } from '@/lib/constants'
+import { PIPELINE_COLUMNS, STATUS_LABELS, PIPELINE_COLUMN_COLORS, SERVICE_LABELS } from '@/lib/constants'
 import { Contact, LeadStatus } from '@/types'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
@@ -51,44 +51,75 @@ export function KanbanBoard({ initialGrouped }: { initialGrouped: Record<LeadSta
       {PIPELINE_COLUMNS.map(status => {
         const cards = grouped[status] ?? []
         const isOver = dragOver === status
+        const colors = PIPELINE_COLUMN_COLORS[status]
 
         return (
           <div
             key={status}
-            className={cn(
-              'flex-shrink-0 w-56 rounded-lg transition-colors',
-              isOver ? 'bg-[#E5E4E0]' : 'bg-[#EBEBEA]'
-            )}
+            className={cn('flex-shrink-0 w-56 rounded-xl transition-all', isOver ? 'scale-[1.01]' : '')}
+            style={{
+              backgroundColor: isOver
+                ? colors.bgColor.replace(/[\d.]+\)$/, '0.14)')
+                : colors.bgColor,
+              border: `1px solid ${colors.borderColor}`,
+            }}
             onDragOver={e => onDragOver(e, status)}
             onDrop={() => onDrop(status)}
             onDragLeave={() => setDragOver(null)}
           >
+            {/* Column header */}
             <div className="px-3 py-3 flex items-center justify-between">
-              <span className="text-xs font-semibold text-[#555]">{STATUS_LABELS[status]}</span>
-              <span className="text-xs text-[#aaa] bg-white rounded px-1.5 py-0.5">{cards.length}</span>
+              <div className="flex items-center gap-2">
+                <span
+                  className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: colors.dotColor }}
+                />
+                <span className={cn('text-xs font-semibold', colors.text)}>
+                  {STATUS_LABELS[status]}
+                </span>
+              </div>
+              <span
+                className="text-[10px] font-semibold rounded-md px-1.5 py-0.5"
+                style={{
+                  backgroundColor: 'rgba(0,0,0,0.3)',
+                  color: colors.dotColor,
+                }}
+              >
+                {cards.length}
+              </span>
             </div>
 
-            <div className="px-2 pb-2 space-y-2 min-h-[120px]">
+            {/* Cards */}
+            <div className="px-2 pb-2 space-y-2 min-h-[100px]">
               {cards.map(contact => (
                 <div
                   key={contact.id}
                   draggable
                   onDragStart={() => onDragStart(contact)}
-                  className={cn(
-                    'bg-white rounded-md border border-[#E5E4E0] p-3 cursor-grab active:cursor-grabbing select-none transition-opacity',
-                    dragging?.id === contact.id ? 'opacity-40' : ''
-                  )}
+                  className="rounded-lg p-3 cursor-grab active:cursor-grabbing select-none transition-all"
+                  style={{
+                    backgroundColor: '#111218',
+                    border: '1px solid #1E1F2E',
+                    opacity: dragging?.id === contact.id ? 0.35 : 1,
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = colors.borderColor)}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = '#1E1F2E')}
                 >
                   <Link href={`/contatos/${contact.id}`} onClick={e => e.stopPropagation()}>
-                    <p className="text-sm font-medium text-[#1A1A18] hover:underline underline-offset-1 leading-tight">
+                    <p
+                      className="text-sm font-medium hover:underline underline-offset-1 leading-tight"
+                      style={{ color: '#E8E9F4' }}
+                    >
                       {contact.name}
                     </p>
                   </Link>
                   {contact.service && (
-                    <p className="text-xs text-[#888] mt-1">{SERVICE_LABELS[contact.service]}</p>
+                    <p className="text-xs mt-1" style={{ color: '#5A5C7E' }}>
+                      {SERVICE_LABELS[contact.service]}
+                    </p>
                   )}
                   {contact.last_contact_at && (
-                    <p className="text-xs text-[#aaa] mt-1.5">
+                    <p className="text-[11px] mt-1.5" style={{ color: '#3A3C55' }}>
                       {formatDistanceToNow(new Date(contact.last_contact_at), { addSuffix: true, locale: ptBR })}
                     </p>
                   )}

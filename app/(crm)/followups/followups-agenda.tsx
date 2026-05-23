@@ -41,39 +41,63 @@ export function FollowupsAgenda({ vencidos: v, deHoje: h, proximos: p, depois: d
     const visiveis = items.filter(visivel)
     if (visiveis.length === 0) return null
     return (
-      <div className="mb-6">
-        <p className={`text-xs font-semibold uppercase tracking-wider mb-3 ${destaque ? 'text-red-500' : 'text-[#888]'}`}>
+      <div className="mb-5">
+        <p
+          className="text-[10px] font-semibold uppercase tracking-wider mb-3"
+          style={{ color: destaque ? '#F87171' : '#4A4B6A', letterSpacing: '0.12em' }}
+        >
           {titulo}
         </p>
-        <div className="bg-white rounded-lg border border-[#E5E4E0] divide-y divide-[#F0EFE9]">
-          {visiveis.map(f => (
-            <div key={f.id} className="flex items-center gap-3 px-4 py-3 group">
+        <div
+          className="rounded-xl overflow-hidden"
+          style={{ backgroundColor: '#111218', border: `1px solid ${destaque ? 'rgba(248,113,113,0.2)' : '#1E1F2E'}` }}
+        >
+          {visiveis.map((f, i) => (
+            <div
+              key={f.id}
+              className="flex items-center gap-3 px-4 py-3 group transition-colors hover:bg-white/[0.02]"
+              style={{ borderBottom: i < visiveis.length - 1 ? '1px solid #181926' : 'none' }}
+            >
               <button
                 onClick={() => marcarFeito(f.id)}
                 disabled={isPending}
-                className="w-5 h-5 rounded border border-[#C8C7C0] hover:border-[#1A1A18] hover:bg-[#1A1A18] flex items-center justify-center transition-colors flex-shrink-0 group/btn"
+                className="w-5 h-5 rounded flex items-center justify-center transition-all flex-shrink-0"
+                style={{ border: '1px solid #2A2B3D' }}
+                onMouseEnter={e => {
+                  const el = e.currentTarget
+                  el.style.backgroundColor = '#5B21B6'
+                  el.style.borderColor = '#5B21B6'
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget
+                  el.style.backgroundColor = 'transparent'
+                  el.style.borderColor = '#2A2B3D'
+                }}
               >
-                <Check size={11} className="text-transparent group-hover/btn:text-white" />
+                <Check size={11} style={{ color: 'transparent' }} />
               </button>
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <p className="text-sm font-medium text-[#1A1A18] truncate">
+                  <p className="text-sm font-medium truncate" style={{ color: '#E8E9F4' }}>
                     {f.contacts?.name ?? 'Contato removido'}
                   </p>
-                  <span className="text-xs text-[#aaa]">
+                  <span className="text-xs" style={{ color: '#3A3C55' }}>
                     {format(new Date(f.scheduled_for), "d 'de' MMM", { locale: ptBR })}
                   </span>
                 </div>
                 {f.message_template && (
-                  <p className="text-xs text-[#999] truncate mt-0.5">{f.message_template}</p>
+                  <p className="text-xs truncate mt-0.5" style={{ color: '#3A3C55' }}>
+                    {f.message_template}
+                  </p>
                 )}
               </div>
 
               {f.contacts?.id && (
                 <Link
                   href={`/contatos/${f.contacts.id}`}
-                  className="opacity-0 group-hover:opacity-100 transition-opacity text-[#C8C7C0] hover:text-[#1A1A18]"
+                  className="opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ color: '#3A3C55' }}
                 >
                   <ExternalLink size={14} />
                 </Link>

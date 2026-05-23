@@ -9,7 +9,7 @@ export default async function CrmLayout({ children }: { children: React.ReactNod
   if (!user) redirect('/login')
 
   return (
-    <div className="flex min-h-screen bg-[#F7F6F3]">
+    <div className="flex min-h-screen" style={{ backgroundColor: '#0B0C10' }}>
       <Sidebar />
       <main className="flex-1 overflow-auto">
         {children}

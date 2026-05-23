@@ -4,6 +4,16 @@ import { LeadStatus, ProjectStatus } from '@/types'
 import Link from 'next/link'
 import { isToday, isPast } from 'date-fns'
 
+const S = {
+  page: { color: '#E8E9F4' },
+  label: { color: '#4A4B6A', letterSpacing: '0.14em' },
+  card: { backgroundColor: '#111218', border: '1px solid #1E1F2E', borderRadius: '10px' },
+  cardValue: { color: '#E8E9F4' },
+  cardLabel: { color: '#5A5C7E' },
+  barBg: { backgroundColor: '#1A1B2E' },
+  barFill: { background: 'linear-gradient(90deg, #5B21B6, #7C3AED)' },
+}
+
 export default async function DashboardPage() {
   const supabase = await createClient()
 
@@ -47,99 +57,108 @@ export default async function DashboardPage() {
   return (
     <div className="p-8 max-w-5xl">
       <div className="mb-8">
-        <p className="text-xs font-semibold tracking-widest uppercase text-[#888] mb-1">Visão geral</p>
-        <h1 className="text-2xl font-semibold text-[#1A1A18] tracking-tight">Dashboard</h1>
+        <p className="text-[10px] font-semibold uppercase mb-1" style={S.label}>Visão geral</p>
+        <h1 className="text-2xl font-semibold tracking-tight" style={S.page}>Dashboard</h1>
       </div>
 
-      {/* Cards de leads */}
-      <p className="text-xs font-semibold text-[#888] uppercase tracking-wider mb-3">Leads</p>
-      <div className="grid grid-cols-4 gap-4 mb-6">
-        <div className="bg-white rounded-lg border border-[#E5E4E0] p-5">
-          <p className="text-xs text-[#888] mb-1">Total de leads</p>
-          <p className="text-3xl font-semibold text-[#1A1A18]">{total}</p>
+      <p className="text-[10px] font-semibold uppercase mb-3" style={S.label}>Leads</p>
+      <div className="grid grid-cols-4 gap-3 mb-6">
+        <div className="p-5" style={S.card}>
+          <p className="text-xs mb-2" style={S.cardLabel}>Total de leads</p>
+          <p className="text-3xl font-semibold" style={S.cardValue}>{total}</p>
         </div>
-        <div className="bg-white rounded-lg border border-[#E5E4E0] p-5">
-          <p className="text-xs text-[#888] mb-1">Em aberto</p>
-          <p className="text-3xl font-semibold text-[#1A1A18]">{ativos}</p>
+        <div className="p-5" style={S.card}>
+          <p className="text-xs mb-2" style={S.cardLabel}>Em aberto</p>
+          <p className="text-3xl font-semibold" style={S.cardValue}>{ativos}</p>
         </div>
-        <div className="bg-white rounded-lg border border-[#E5E4E0] p-5">
-          <p className="text-xs text-[#888] mb-1">Fechados</p>
-          <p className="text-3xl font-semibold text-[#1A1A18]">{fechados}</p>
+        <div className="p-5" style={S.card}>
+          <p className="text-xs mb-2" style={S.cardLabel}>Fechados</p>
+          <p className="text-3xl font-semibold" style={{ color: '#34D399' }}>{fechados}</p>
         </div>
-        <Link href="/followups" className="bg-white rounded-lg border border-[#E5E4E0] p-5 hover:border-[#C8C7C0] transition-colors group">
-          <p className="text-xs text-[#888] mb-1">Follow-ups pendentes</p>
-          <p className={`text-3xl font-semibold ${followupsHoje > 0 ? 'text-[#1A1A18]' : 'text-[#C8C7C0]'}`}>
+        <Link
+          href="/followups"
+          className="p-5 block transition-all group"
+          style={{ ...S.card, ...(followupsHoje > 0 ? { borderColor: 'rgba(249,115,22,0.4)' } : {}) }}
+        >
+          <p className="text-xs mb-2" style={S.cardLabel}>Follow-ups hoje</p>
+          <p className="text-3xl font-semibold" style={{ color: followupsHoje > 0 ? '#FB923C' : '#2A2B3E' }}>
             {followupsHoje}
           </p>
           {followupsHoje > 0 && (
-            <p className="text-[10px] text-[#888] mt-1 group-hover:text-[#1A1A18] transition-colors">Ver agenda →</p>
+            <p className="text-[10px] mt-1.5 transition-colors group-hover:text-white" style={{ color: '#5A5C7E' }}>
+              Ver agenda →
+            </p>
           )}
         </Link>
       </div>
 
-      {/* Cards de projetos */}
-      <p className="text-xs font-semibold text-[#888] uppercase tracking-wider mb-3">Projetos</p>
-      <div className="grid grid-cols-2 gap-4 mb-8">
-        <Link href="/projetos" className="bg-white rounded-lg border border-[#E5E4E0] p-5 hover:border-[#C8C7C0] transition-colors group">
-          <p className="text-xs text-[#888] mb-1">Em andamento</p>
-          <p className={`text-3xl font-semibold ${projetosAtivos > 0 ? 'text-[#1A1A18]' : 'text-[#C8C7C0]'}`}>
+      <p className="text-[10px] font-semibold uppercase mb-3" style={S.label}>Projetos</p>
+      <div className="grid grid-cols-2 gap-3 mb-8">
+        <Link
+          href="/projetos"
+          className="p-5 block transition-all group"
+          style={S.card}
+        >
+          <p className="text-xs mb-2" style={S.cardLabel}>Em andamento</p>
+          <p className="text-3xl font-semibold" style={{ color: projetosAtivos > 0 ? '#A78BFA' : '#2A2B3E' }}>
             {projetosAtivos}
           </p>
           {projetosAtivos > 0 && (
-            <p className="text-[10px] text-[#888] mt-1 group-hover:text-[#1A1A18] transition-colors">Ver projetos →</p>
+            <p className="text-[10px] mt-1.5 transition-colors group-hover:text-white" style={{ color: '#5A5C7E' }}>
+              Ver projetos →
+            </p>
           )}
         </Link>
-        <div className="bg-white rounded-lg border border-[#E5E4E0] p-5">
-          <p className="text-xs text-[#888] mb-1">Faturamento previsto</p>
-          <p className={`text-2xl font-semibold ${faturamentoPrevisto > 0 ? 'text-[#1A1A18]' : 'text-[#C8C7C0]'}`}>
+        <div className="p-5" style={S.card}>
+          <p className="text-xs mb-2" style={S.cardLabel}>Faturamento previsto</p>
+          <p className="text-2xl font-semibold" style={{ color: faturamentoPrevisto > 0 ? '#34D399' : '#2A2B3E' }}>
             {faturamentoPrevisto > 0
               ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(faturamentoPrevisto)
               : 'R$ 0'}
           </p>
-          <p className="text-[10px] text-[#aaa] mt-1">projetos ativos com valor definido</p>
+          <p className="text-[10px] mt-1" style={{ color: '#3A3C55' }}>projetos ativos com valor definido</p>
         </div>
       </div>
 
-      {/* Distribuição por etapa */}
-      <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white rounded-lg border border-[#E5E4E0] p-5">
-          <p className="text-sm font-semibold text-[#1A1A18] mb-4">Leads por etapa</p>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="p-5" style={S.card}>
+          <p className="text-sm font-semibold mb-4" style={S.page}>Leads por etapa</p>
           {byStatus.length === 0 ? (
-            <p className="text-sm text-[#888]">Nenhum lead cadastrado ainda.</p>
+            <p className="text-sm" style={S.cardLabel}>Nenhum lead cadastrado.</p>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-3">
               {byStatus.map(({ key, label, count }) => (
                 <div key={key} className="flex items-center gap-3">
-                  <span className="text-sm text-[#555] w-36 truncate">{label}</span>
-                  <div className="flex-1 h-1.5 bg-[#F0EFE9] rounded-full overflow-hidden">
+                  <span className="text-sm w-36 truncate" style={{ color: '#7273A0' }}>{label}</span>
+                  <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={S.barBg}>
                     <div
-                      className="h-full bg-[#1A1A18] rounded-full"
-                      style={{ width: total ? `${(count / total) * 100}%` : '0%' }}
+                      className="h-full rounded-full transition-all"
+                      style={{ ...S.barFill, width: total ? `${(count / total) * 100}%` : '0%' }}
                     />
                   </div>
-                  <span className="text-sm font-medium text-[#1A1A18] w-5 text-right">{count}</span>
+                  <span className="text-sm font-medium w-5 text-right" style={S.cardValue}>{count}</span>
                 </div>
               ))}
             </div>
           )}
         </div>
 
-        <div className="bg-white rounded-lg border border-[#E5E4E0] p-5">
-          <p className="text-sm font-semibold text-[#1A1A18] mb-4">Projetos por etapa</p>
+        <div className="p-5" style={S.card}>
+          <p className="text-sm font-semibold mb-4" style={S.page}>Projetos por etapa</p>
           {projectsByStatus.length === 0 ? (
-            <p className="text-sm text-[#888]">Nenhum projeto ainda.</p>
+            <p className="text-sm" style={S.cardLabel}>Nenhum projeto ainda.</p>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-3">
               {projectsByStatus.map(({ key, label, count }) => (
                 <div key={key} className="flex items-center gap-3">
-                  <span className="text-sm text-[#555] w-36 truncate">{label}</span>
-                  <div className="flex-1 h-1.5 bg-[#F0EFE9] rounded-full overflow-hidden">
+                  <span className="text-sm w-36 truncate" style={{ color: '#7273A0' }}>{label}</span>
+                  <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={S.barBg}>
                     <div
-                      className="h-full bg-[#1A1A18] rounded-full"
-                      style={{ width: (projects?.length ?? 0) ? `${(count / (projects?.length ?? 1)) * 100}%` : '0%' }}
+                      className="h-full rounded-full transition-all"
+                      style={{ ...S.barFill, width: (projects?.length ?? 0) ? `${(count / (projects?.length ?? 1)) * 100}%` : '0%' }}
                     />
                   </div>
-                  <span className="text-sm font-medium text-[#1A1A18] w-5 text-right">{count}</span>
+                  <span className="text-sm font-medium w-5 text-right" style={S.cardValue}>{count}</span>
                 </div>
               ))}
             </div>

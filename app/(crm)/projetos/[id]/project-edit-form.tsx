@@ -2,14 +2,22 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { SERVICE_LABELS } from '@/lib/constants'
 import { Project, ServiceType } from '@/types'
 import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react'
 
 const SERVICES = Object.entries(SERVICE_LABELS) as [ServiceType, string][]
+
+const inputStyle: React.CSSProperties = {
+  width: '100%',
+  backgroundColor: 'rgba(255,255,255,0.03)',
+  border: '1px solid #1E1F2E',
+  color: '#E8E9F4',
+  borderRadius: '8px',
+  height: '36px',
+  padding: '0 12px',
+  fontSize: '14px',
+}
 
 export function ProjectEditForm({ project }: { project: Project }) {
   const [open, setOpen] = useState(false)
@@ -27,6 +35,14 @@ export function ProjectEditForm({ project }: { project: Project }) {
 
   function set(field: string, value: string) {
     setForm(prev => ({ ...prev, [field]: value }))
+  }
+
+  const onFocus = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    e.target.style.borderColor = 'rgba(91,33,182,0.5)'
+    e.target.style.outline = 'none'
+  }
+  const onBlur = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    e.target.style.borderColor = '#1E1F2E'
   }
 
   async function handleSave(e: React.FormEvent) {
@@ -61,29 +77,47 @@ export function ProjectEditForm({ project }: { project: Project }) {
   }
 
   return (
-    <div className="bg-white rounded-lg border border-[#E5E4E0]">
+    <div
+      className="rounded-xl overflow-hidden"
+      style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
+    >
       <button
         onClick={() => setOpen(o => !o)}
-        className="w-full flex items-center justify-between px-5 py-4 text-sm font-semibold text-[#1A1A18]"
+        className="w-full flex items-center justify-between px-5 py-4 text-sm font-semibold transition-colors hover:bg-white/[0.02]"
+        style={{ color: '#E8E9F4' }}
       >
         Editar projeto
-        {open ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+        {open
+          ? <ChevronUp size={14} style={{ color: '#5A5C7E' }} />
+          : <ChevronDown size={14} style={{ color: '#5A5C7E' }} />
+        }
       </button>
 
       {open && (
-        <form onSubmit={handleSave} className="px-5 pb-5 space-y-4 border-t border-[#F0EFE9]">
+        <form
+          onSubmit={handleSave}
+          className="px-5 pb-5 space-y-4"
+          style={{ borderTop: '1px solid #1A1B28' }}
+        >
           <div className="space-y-1.5 pt-4">
-            <Label htmlFor="edit-title">Título *</Label>
-            <Input id="edit-title" value={form.title} onChange={e => set('title', e.target.value)} />
+            <label className="text-xs" style={{ color: '#5A5C7E' }}>Título *</label>
+            <input
+              value={form.title}
+              onChange={e => set('title', e.target.value)}
+              style={inputStyle}
+              onFocus={onFocus}
+              onBlur={onBlur}
+            />
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="edit-service">Serviço</Label>
+            <label className="text-xs" style={{ color: '#5A5C7E' }}>Serviço</label>
             <select
-              id="edit-service"
               value={form.service}
               onChange={e => set('service', e.target.value)}
-              className="w-full h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"
+              style={{ ...inputStyle, appearance: 'none' }}
+              onFocus={onFocus}
+              onBlur={onBlur}
             >
               <option value="">Selecionar...</option>
               {SERVICES.map(([key, label]) => (
@@ -94,41 +128,74 @@ export function ProjectEditForm({ project }: { project: Project }) {
 
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <Label htmlFor="edit-value">Valor (R$)</Label>
-              <Input id="edit-value" value={form.value} onChange={e => set('value', e.target.value)} />
+              <label className="text-xs" style={{ color: '#5A5C7E' }}>Valor (R$)</label>
+              <input
+                value={form.value}
+                onChange={e => set('value', e.target.value)}
+                style={inputStyle}
+                onFocus={onFocus}
+                onBlur={onBlur}
+              />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="edit-deadline">Prazo</Label>
-              <Input id="edit-deadline" type="date" value={form.deadline} onChange={e => set('deadline', e.target.value)} />
+              <label className="text-xs" style={{ color: '#5A5C7E' }}>Prazo</label>
+              <input
+                type="date"
+                value={form.deadline}
+                onChange={e => set('deadline', e.target.value)}
+                style={inputStyle}
+                onFocus={onFocus}
+                onBlur={onBlur}
+              />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="edit-notes">Observações</Label>
+            <label className="text-xs" style={{ color: '#5A5C7E' }}>Observações</label>
             <textarea
-              id="edit-notes"
               value={form.notes}
               onChange={e => set('notes', e.target.value)}
-              className="w-full min-h-[72px] rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm resize-none"
+              className="w-full min-h-[72px] px-3 py-2 text-sm resize-none focus:outline-none"
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.03)',
+                border: '1px solid #1E1F2E',
+                color: '#E8E9F4',
+                borderRadius: '8px',
+              }}
+              onFocus={onFocus}
+              onBlur={onBlur}
             />
           </div>
 
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          {error && <p className="text-sm text-red-400">{error}</p>}
 
           <div className="flex gap-2 pt-1">
-            <Button type="submit" size="sm" disabled={loading}>
+            <button
+              type="submit"
+              disabled={loading}
+              className="h-8 px-4 rounded-lg text-xs font-medium transition-all disabled:opacity-40"
+              style={{ background: 'linear-gradient(135deg, #5B21B6, #7C3AED)', color: '#fff' }}
+            >
               {loading ? 'Salvando...' : 'Salvar'}
-            </Button>
-            <Button type="button" size="sm" variant="outline" onClick={() => setOpen(false)}>
+            </button>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="h-8 px-4 rounded-lg text-xs transition-all hover:bg-white/5"
+              style={{ color: '#5A5C7E', border: '1px solid #1E1F2E' }}
+            >
               Cancelar
-            </Button>
+            </button>
           </div>
 
-          <div className="border-t border-[#F0EFE9] pt-3">
+          <div className="pt-2" style={{ borderTop: '1px solid #1A1B28' }}>
             <button
               type="button"
               onClick={handleDelete}
-              className="flex items-center gap-2 text-xs text-red-500 hover:text-red-700"
+              className="flex items-center gap-2 text-xs transition-colors"
+              style={{ color: '#3A3C55' }}
+              onMouseEnter={e => (e.currentTarget.style.color = '#F87171')}
+              onMouseLeave={e => (e.currentTarget.style.color = '#3A3C55')}
             >
               <Trash2 size={12} />
               Excluir projeto

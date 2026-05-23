@@ -42,34 +42,40 @@ export function ProjectFunnelClient({ projectId, currentStatus }: { projectId: s
   const isFirst = currentIndex === 0
 
   return (
-    <div className="bg-white rounded-lg border border-[#E5E4E0] p-5">
-      <p className="text-xs font-semibold text-[#888] uppercase tracking-wider mb-4">Mover etapa</p>
+    <div
+      className="p-5 rounded-xl"
+      style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
+    >
+      <p className="text-[10px] font-semibold uppercase mb-4" style={{ color: '#4A4B6A', letterSpacing: '0.12em' }}>
+        Mover etapa
+      </p>
 
-      <div className="space-y-2 mb-5">
+      <div className="space-y-1.5 mb-5">
         {PROJECT_FUNNEL.map((stage, i) => {
           const isActive = stage === currentStatus
           const isDone = i < currentIndex
           return (
             <div
               key={stage}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors ${
-                isActive
-                  ? 'bg-[#1A1A18] text-white'
-                  : isDone
-                  ? 'text-[#888] line-through'
-                  : 'text-[#C8C7C0]'
-              }`}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors"
+              style={{
+                backgroundColor: isActive ? 'rgba(139,92,246,0.12)' : 'transparent',
+                color: isActive ? '#C4B5FD' : isDone ? '#3A3C55' : '#5A5C7E',
+              }}
             >
-              <span className={`w-5 h-5 rounded-full border flex items-center justify-center text-[10px] font-semibold flex-shrink-0 ${
-                isActive
-                  ? 'border-white text-white'
-                  : isDone
-                  ? 'border-[#888] text-[#888]'
-                  : 'border-[#E5E4E0] text-[#C8C7C0]'
-              }`}>
+              <span
+                className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-semibold flex-shrink-0"
+                style={{
+                  border: `1px solid ${isActive ? '#7C3AED' : isDone ? '#2A2B3D' : '#1E1F2E'}`,
+                  color: isActive ? '#A78BFA' : isDone ? '#3A3C55' : '#2A2B3D',
+                  background: isActive ? 'rgba(124,58,237,0.2)' : 'transparent',
+                }}
+              >
                 {isDone ? '✓' : i + 1}
               </span>
-              {PROJECT_STATUS_LABELS[stage]}
+              <span style={{ textDecoration: isDone ? 'line-through' : 'none' }}>
+                {PROJECT_STATUS_LABELS[stage]}
+              </span>
             </div>
           )
         })}
@@ -80,7 +86,8 @@ export function ProjectFunnelClient({ projectId, currentStatus }: { projectId: s
           <button
             onClick={goBack}
             disabled={loading}
-            className="flex-1 py-2 text-sm border border-[#E5E4E0] rounded-md text-[#555] hover:border-[#C8C7C0] hover:text-[#1A1A18] transition-colors disabled:opacity-50"
+            className="flex-1 py-2.5 text-sm rounded-lg transition-all disabled:opacity-40 hover:bg-white/5"
+            style={{ color: '#7273A0', border: '1px solid #1E1F2E' }}
           >
             ← Voltar etapa
           </button>
@@ -89,13 +96,17 @@ export function ProjectFunnelClient({ projectId, currentStatus }: { projectId: s
           <button
             onClick={advance}
             disabled={loading}
-            className="flex-1 py-2 text-sm bg-[#1A1A18] text-white rounded-md hover:bg-[#333] transition-colors disabled:opacity-50"
+            className="flex-1 py-2.5 text-sm rounded-lg font-medium transition-all disabled:opacity-40"
+            style={{ background: 'linear-gradient(135deg, #5B21B6, #7C3AED)', color: '#fff' }}
           >
             Avançar → {PROJECT_STATUS_LABELS[PROJECT_FUNNEL[currentIndex + 1]]}
           </button>
         )}
         {isLast && (
-          <div className="flex-1 py-2 text-sm text-center text-[#888] bg-[#F0EFE9] rounded-md">
+          <div
+            className="flex-1 py-2.5 text-sm text-center rounded-lg"
+            style={{ backgroundColor: 'rgba(52,211,153,0.08)', color: '#34D399', border: '1px solid rgba(52,211,153,0.2)' }}
+          >
             Projeto entregue
           </div>
         )}

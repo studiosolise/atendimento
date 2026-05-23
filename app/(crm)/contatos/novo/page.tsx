@@ -3,9 +3,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { SERVICE_LABELS, STATUS_LABELS } from '@/lib/constants'
 import { LeadStatus, ServiceType } from '@/types'
 import Link from 'next/link'
@@ -13,6 +10,17 @@ import { ArrowLeft } from 'lucide-react'
 
 const STATUSES = Object.entries(STATUS_LABELS) as [LeadStatus, string][]
 const SERVICES = Object.entries(SERVICE_LABELS) as [ServiceType, string][]
+
+const inputStyle = {
+  width: '100%',
+  backgroundColor: 'rgba(255,255,255,0.03)',
+  border: '1px solid #1E1F2E',
+  color: '#E8E9F4',
+  borderRadius: '8px',
+  height: '36px',
+  padding: '0 12px',
+  fontSize: '14px',
+}
 
 export default function NovoContatoPage() {
   const router = useRouter()
@@ -59,52 +67,107 @@ export default function NovoContatoPage() {
     router.refresh()
   }
 
+  const focusStyle = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    e.target.style.borderColor = 'rgba(91,33,182,0.5)'
+    e.target.style.outline = 'none'
+  }
+  const blurStyle = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    e.target.style.borderColor = '#1E1F2E'
+  }
+
   return (
     <div className="p-8 max-w-2xl">
-      <Link href="/contatos" className="inline-flex items-center gap-2 text-sm text-[#888] hover:text-[#1A1A18] mb-6">
+      <Link
+        href="/contatos"
+        className="inline-flex items-center gap-2 text-sm mb-6 transition-colors hover:opacity-80"
+        style={{ color: '#5A5C7E' }}
+      >
         <ArrowLeft size={14} />
-        Voltar
+        Contatos
       </Link>
 
       <div className="mb-8">
-        <p className="text-xs font-semibold tracking-widest uppercase text-[#888] mb-1">Contatos</p>
-        <h1 className="text-2xl font-semibold text-[#1A1A18] tracking-tight">Novo contato</h1>
+        <p className="text-[10px] font-semibold uppercase mb-1" style={{ color: '#4A4B6A', letterSpacing: '0.14em' }}>
+          Contatos
+        </p>
+        <h1 className="text-2xl font-semibold tracking-tight" style={{ color: '#E8E9F4' }}>Novo contato</h1>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-lg border border-[#E5E4E0] p-6 space-y-5">
+      <form
+        onSubmit={handleSubmit}
+        className="p-6 space-y-5 rounded-xl"
+        style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
+      >
         <div className="grid grid-cols-2 gap-4">
           <div className="col-span-2 space-y-1.5">
-            <Label htmlFor="name">Nome *</Label>
-            <Input id="name" value={form.name} onChange={e => set('name', e.target.value)} placeholder="Nome completo" />
+            <label className="text-xs" style={{ color: '#5A5C7E' }}>Nome *</label>
+            <input
+              value={form.name}
+              onChange={e => set('name', e.target.value)}
+              placeholder="Nome completo"
+              style={inputStyle}
+              onFocus={focusStyle}
+              onBlur={blurStyle}
+            />
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="phone">WhatsApp</Label>
-            <Input id="phone" value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="(11) 9 0000-0000" />
+            <label className="text-xs" style={{ color: '#5A5C7E' }}>WhatsApp</label>
+            <input
+              value={form.phone}
+              onChange={e => set('phone', e.target.value)}
+              placeholder="(11) 9 0000-0000"
+              style={inputStyle}
+              onFocus={focusStyle}
+              onBlur={blurStyle}
+            />
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="email">E-mail</Label>
-            <Input id="email" type="email" value={form.email} onChange={e => set('email', e.target.value)} placeholder="email@exemplo.com" />
+            <label className="text-xs" style={{ color: '#5A5C7E' }}>E-mail</label>
+            <input
+              type="email"
+              value={form.email}
+              onChange={e => set('email', e.target.value)}
+              placeholder="email@exemplo.com"
+              style={inputStyle}
+              onFocus={focusStyle}
+              onBlur={blurStyle}
+            />
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="instagram">Instagram</Label>
-            <Input id="instagram" value={form.instagram} onChange={e => set('instagram', e.target.value)} placeholder="@handle" />
+            <label className="text-xs" style={{ color: '#5A5C7E' }}>Instagram</label>
+            <input
+              value={form.instagram}
+              onChange={e => set('instagram', e.target.value)}
+              placeholder="@handle"
+              style={inputStyle}
+              onFocus={focusStyle}
+              onBlur={blurStyle}
+            />
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="company">Empresa</Label>
-            <Input id="company" value={form.company} onChange={e => set('company', e.target.value)} placeholder="Nome da empresa" />
+            <label className="text-xs" style={{ color: '#5A5C7E' }}>Empresa</label>
+            <input
+              value={form.company}
+              onChange={e => set('company', e.target.value)}
+              placeholder="Nome da empresa"
+              style={inputStyle}
+              onFocus={focusStyle}
+              onBlur={blurStyle}
+            />
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="service">Serviço de interesse</Label>
+            <label className="text-xs" style={{ color: '#5A5C7E' }}>Serviço de interesse</label>
             <select
-              id="service"
               value={form.service}
               onChange={e => set('service', e.target.value)}
-              className="w-full h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"
+              style={{ ...inputStyle, appearance: 'none' } as React.CSSProperties}
+              onFocus={focusStyle}
+              onBlur={blurStyle}
             >
               <option value="">Selecionar...</option>
               {SERVICES.map(([key, label]) => (
@@ -114,12 +177,13 @@ export default function NovoContatoPage() {
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="status">Status</Label>
+            <label className="text-xs" style={{ color: '#5A5C7E' }}>Status</label>
             <select
-              id="status"
               value={form.status}
               onChange={e => set('status', e.target.value)}
-              className="w-full h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"
+              style={{ ...inputStyle, appearance: 'none' } as React.CSSProperties}
+              onFocus={focusStyle}
+              onBlur={blurStyle}
             >
               {STATUSES.map(([key, label]) => (
                 <option key={key} value={key}>{label}</option>
@@ -128,12 +192,13 @@ export default function NovoContatoPage() {
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="source">Canal de entrada</Label>
+            <label className="text-xs" style={{ color: '#5A5C7E' }}>Canal de entrada</label>
             <select
-              id="source"
               value={form.source}
               onChange={e => set('source', e.target.value)}
-              className="w-full h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"
+              style={{ ...inputStyle, appearance: 'none' } as React.CSSProperties}
+              onFocus={focusStyle}
+              onBlur={blurStyle}
             >
               <option value="instagram_ads">Instagram Ads</option>
               <option value="whatsapp_direto">WhatsApp Direto</option>
@@ -143,25 +208,43 @@ export default function NovoContatoPage() {
           </div>
 
           <div className="col-span-2 space-y-1.5">
-            <Label htmlFor="notes">Observações</Label>
+            <label className="text-xs" style={{ color: '#5A5C7E' }}>Observações</label>
             <textarea
-              id="notes"
               value={form.notes}
               onChange={e => set('notes', e.target.value)}
               placeholder="Contexto sobre o lead, necessidades específicas..."
-              className="w-full min-h-[80px] rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm resize-none"
+              className="w-full min-h-[80px] px-3 py-2.5 text-sm resize-none focus:outline-none"
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.03)',
+                border: '1px solid #1E1F2E',
+                color: '#E8E9F4',
+                borderRadius: '8px',
+              }}
+              onFocus={focusStyle}
+              onBlur={blurStyle}
             />
           </div>
         </div>
 
-        {error && <p className="text-sm text-red-600">{error}</p>}
+        {error && <p className="text-sm text-red-400">{error}</p>}
 
-        <div className="flex gap-3 pt-2">
-          <Button type="submit" disabled={loading}>
+        <div className="flex gap-3 pt-1">
+          <button
+            type="submit"
+            disabled={loading}
+            className="h-9 px-5 rounded-lg text-sm font-semibold transition-all disabled:opacity-40"
+            style={{ background: 'linear-gradient(135deg, #5B21B6, #7C3AED)', color: '#fff' }}
+          >
             {loading ? 'Salvando...' : 'Salvar contato'}
-          </Button>
+          </button>
           <Link href="/contatos">
-            <Button type="button" variant="outline">Cancelar</Button>
+            <button
+              type="button"
+              className="h-9 px-5 rounded-lg text-sm transition-all hover:bg-white/5"
+              style={{ color: '#5A5C7E', border: '1px solid #1E1F2E' }}
+            >
+              Cancelar
+            </button>
           </Link>
         </div>
       </form>

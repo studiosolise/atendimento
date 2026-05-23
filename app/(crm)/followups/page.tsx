@@ -29,19 +29,28 @@ export default async function FollowupsPage() {
   return (
     <div className="p-8 max-w-3xl">
       <div className="mb-8">
-        <p className="text-xs font-semibold tracking-widest uppercase text-[#888] mb-1">Agenda</p>
+        <p className="text-[10px] font-semibold uppercase mb-1" style={{ color: '#4A4B6A', letterSpacing: '0.14em' }}>
+          Agenda
+        </p>
         <div className="flex items-baseline gap-3">
-          <h1 className="text-2xl font-semibold text-[#1A1A18] tracking-tight">Follow-ups</h1>
+          <h1 className="text-2xl font-semibold tracking-tight" style={{ color: '#E8E9F4' }}>Follow-ups</h1>
           {totalPendente > 0 && (
-            <span className="text-sm text-[#888]">{totalPendente} pendente{totalPendente > 1 ? 's' : ''}</span>
+            <span className="text-sm" style={{ color: '#5A5C7E' }}>
+              {totalPendente} pendente{totalPendente > 1 ? 's' : ''}
+            </span>
           )}
         </div>
       </div>
 
       {totalPendente === 0 ? (
-        <div className="bg-white rounded-lg border border-[#E5E4E0] p-8 text-center">
-          <p className="text-sm text-[#888]">Nenhum follow-up pendente.</p>
-          <p className="text-xs text-[#aaa] mt-1">Acesse um contato para criar um roteiro de follow-up.</p>
+        <div
+          className="p-8 text-center rounded-xl"
+          style={{ backgroundColor: '#111218', border: '1px solid #1E1F2E' }}
+        >
+          <p className="text-sm" style={{ color: '#5A5C7E' }}>Nenhum follow-up pendente.</p>
+          <p className="text-xs mt-1" style={{ color: '#3A3C55' }}>
+            Acesse um contato para criar um roteiro de follow-up.
+          </p>
         </div>
       ) : (
         <FollowupsAgenda
