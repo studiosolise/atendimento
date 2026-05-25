@@ -78,6 +78,7 @@ export function ImportCSVButton() {
   const [columnMap, setColumnMap] = useState<ColumnMap | null>(null)
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(0)
+  const [skipped, setSkipped] = useState(0)
   const [error, setError] = useState('')
 
   function reset() {
@@ -130,10 +131,11 @@ export function ImportCSVButton() {
       const json = await res.json()
       if (!res.ok) { setError(json.error ?? 'Erro ao importar.'); return }
       setDone(json.imported)
+      setSkipped(json.skipped ?? 0)
       setTimeout(() => {
         close()
         router.refresh()
-      }, 1800)
+      }, 2500)
     } catch {
       setError('Erro de conexão. Tente novamente.')
     } finally {
@@ -180,14 +182,19 @@ export function ImportCSVButton() {
             </div>
 
             <div className="p-6">
-              {done > 0 ? (
+              {(done > 0 || skipped > 0) && !loading ? (
                 /* Sucesso */
                 <div className="flex flex-col items-center gap-3 py-6">
                   <CheckCircle size={40} style={{ color: '#059669' }} />
                   <p className="text-sm font-semibold" style={{ color: '#1A1A18' }}>
                     {done} {done === 1 ? 'contato importado' : 'contatos importados'}
                   </p>
-                  <p className="text-xs" style={{ color: '#AAAAAA' }}>Recarregando a lista...</p>
+                  {skipped > 0 && (
+                    <p className="text-xs text-center max-w-xs" style={{ color: '#AAAAAA' }}>
+                      {skipped} {skipped === 1 ? 'contato ignorado' : 'contatos ignorados'} por duplicata (mesmo nome, telefone ou e-mail)
+                    </p>
+                  )}
+                  <p className="text-xs" style={{ color: '#CCCCCC' }}>Recarregando a lista...</p>
                 </div>
               ) : contacts.length === 0 ? (
                 /* Upload */
