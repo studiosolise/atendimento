@@ -72,7 +72,7 @@ export function FollowupsPanel({ contactId, initial }: Props) {
 
   return (
     <div
-      className="rounded-xl overflow-hidden"
+      className="rounded-xl"
       style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E5E8' }}
     >
       <button
@@ -111,7 +111,7 @@ export function FollowupsPanel({ contactId, initial }: Props) {
             </button>
             {menuOpen && (
               <div
-                className="absolute top-full left-0 mt-1 w-full rounded-xl z-10 overflow-hidden bg-white"
+                className="absolute bottom-full left-0 mb-1 w-full rounded-xl z-10 overflow-hidden bg-white"
                 style={{ border: '1px solid #E5E5E8', boxShadow: '0 8px 24px rgba(0,0,0,0.08)' }}
               >
                 <button

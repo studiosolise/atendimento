@@ -8,7 +8,7 @@ function toWhatsAppUrl(phone: string): string {
   if (digits.startsWith('55') && digits.length >= 12) return `https://wa.me/${digits}`
   return `https://wa.me/55${digits}`
 }
-import { StatusBadge } from '@/components/crm/status-badge'
+import { StatusDropdown } from './status-dropdown'
 import { SERVICE_LABELS } from '@/lib/constants'
 import { Contact, Interaction } from '@/types'
 import { format } from 'date-fns'
@@ -71,7 +71,7 @@ export default async function ContatoPage({ params }: { params: Promise<{ id: st
             {contact.name}
           </h1>
           <div className="flex items-center gap-3 mt-2">
-            <StatusBadge status={contact.status} />
+            <StatusDropdown contactId={id} status={contact.status} />
             {contact.service && (
               <span className="text-sm" style={{ color: '#AAAAAA' }}>
                 {SERVICE_LABELS[contact.service]}
