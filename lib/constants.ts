@@ -27,7 +27,6 @@ export const STATUS_COLORS: Record<LeadStatus, string> = {
 export const PIPELINE_COLUMNS: LeadStatus[] = [
   'novo_lead',
   'contato_feito',
-  'reuniao',
   'qualificado',
   'proposta_enviada',
   'negociacao',
