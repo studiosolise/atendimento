@@ -8,6 +8,7 @@ import { Contact, LeadStatus } from '@/types'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { cn } from '@/lib/utils'
+import { FLAGS_MAP, FlagId } from '@/lib/flags'
 
 export function KanbanBoard({ initialGrouped }: { initialGrouped: Record<LeadStatus, Contact[]> }) {
   const [grouped, setGrouped] = useState(initialGrouped)
@@ -123,6 +124,24 @@ export function KanbanBoard({ initialGrouped }: { initialGrouped: Record<LeadSta
                     <p className="text-[11px] mt-1.5" style={{ color: '#CCCCCC' }}>
                       {formatDistanceToNow(new Date(contact.last_contact_at), { addSuffix: true, locale: ptBR })}
                     </p>
+                  )}
+                  {contact.flags && contact.flags.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {contact.flags.map(f => {
+                        const flag = FLAGS_MAP[f as FlagId]
+                        if (!flag) return null
+                        return (
+                          <span
+                            key={f}
+                            className="flex items-center gap-1 text-[10px] font-medium px-1.5 py-0.5 rounded"
+                            style={{ backgroundColor: flag.bg, color: flag.color, border: `1px solid ${flag.border}` }}
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: flag.color }} />
+                            {flag.label}
+                          </span>
+                        )
+                      })}
+                    </div>
                   )}
                 </div>
               ))}

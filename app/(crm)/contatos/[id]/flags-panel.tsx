@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { FLAGS, FlagId } from '@/lib/flags'
 
-export function FlagsPanel({ contactId, initial }: { contactId: string; initial: string[] }) {
+export function FlagsPanel({ contactId, initial }: { contactId: string; initial: string[] | null }) {
   const supabase = createClient()
-  const [flags, setFlags] = useState<string[]>(initial)
+  const [flags, setFlags] = useState<string[]>(initial ?? [])
   const [loading, setLoading] = useState<string | null>(null)
 
   async function toggle(id: FlagId) {
