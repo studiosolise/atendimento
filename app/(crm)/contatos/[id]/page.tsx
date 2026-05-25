@@ -18,6 +18,7 @@ import { EditContactForm } from './edit-contact-form'
 import { AgentePanel } from './agente-panel'
 import { FollowupsPanel } from './followups-panel'
 import { ProjectsPanel } from './projects-panel'
+import { FlagsPanel } from './flags-panel'
 import { Followup } from '@/types'
 
 const INTERACTION_LABELS: Record<string, string> = {
@@ -193,6 +194,7 @@ export default async function ContatoPage({ params }: { params: Promise<{ id: st
             </div>
           </div>
 
+          <FlagsPanel contactId={id} initial={contact.flags ?? []} />
           <EditContactForm contact={contact} />
           <FollowupsPanel contactId={id} initial={followups ?? []} />
 

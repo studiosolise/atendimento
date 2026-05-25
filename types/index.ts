@@ -36,6 +36,7 @@ export interface Contact {
   status: LeadStatus
   source: LeadSource | null
   notes: string | null
+  flags: string[]
   created_at: string
   updated_at: string
   last_contact_at: string | null
@@ -76,6 +77,9 @@ export interface Project {
   status: ProjectStatus
   value: number | null
   deadline: string | null
+  start_date: string | null
+  presentation_date: string | null
+  delivery_date: string | null
   notes: string | null
   created_at: string
   updated_at: string

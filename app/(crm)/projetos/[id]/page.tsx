@@ -133,6 +133,49 @@ export default async function ProjetoPage({ params }: { params: Promise<{ id: st
               </div>
             )}
 
+            {(project.start_date || project.presentation_date || project.delivery_date) && (
+              <div style={{ borderTop: '1px solid #F5F5F5', paddingTop: '12px' }}>
+                <p className="text-[10px] font-semibold uppercase mb-3" style={{ color: '#CCCCCC', letterSpacing: '0.12em' }}>
+                  Fluxo
+                </p>
+                <div className="space-y-2">
+                  {project.start_date && (
+                    <div className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: '#3B82F6' }} />
+                      <div>
+                        <p className="text-[10px]" style={{ color: '#CCCCCC' }}>Início</p>
+                        <p className="text-sm" style={{ color: '#1A1A18' }}>
+                          {format(new Date(project.start_date + 'T12:00:00'), "d 'de' MMM 'de' yyyy", { locale: ptBR })}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  {project.presentation_date && (
+                    <div className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: '#D97706' }} />
+                      <div>
+                        <p className="text-[10px]" style={{ color: '#CCCCCC' }}>Apresentação</p>
+                        <p className="text-sm" style={{ color: '#1A1A18' }}>
+                          {format(new Date(project.presentation_date + 'T12:00:00'), "d 'de' MMM 'de' yyyy", { locale: ptBR })}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  {project.delivery_date && (
+                    <div className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: '#059669' }} />
+                      <div>
+                        <p className="text-[10px]" style={{ color: '#CCCCCC' }}>Entrega</p>
+                        <p className="text-sm" style={{ color: '#1A1A18' }}>
+                          {format(new Date(project.delivery_date + 'T12:00:00'), "d 'de' MMM 'de' yyyy", { locale: ptBR })}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
             {project.notes && (
               <div>
                 <p className="text-[10px] mb-0.5" style={{ color: '#CCCCCC' }}>Observações</p>

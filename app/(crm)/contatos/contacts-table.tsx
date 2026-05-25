@@ -9,6 +9,7 @@ import { SERVICE_LABELS, STATUS_LABELS } from '@/lib/constants'
 import { Contact, LeadStatus } from '@/types'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
+import { FLAGS_MAP } from '@/lib/flags'
 
 const STATUSES = Object.entries(STATUS_LABELS) as [LeadStatus, string][]
 
@@ -137,13 +138,28 @@ export function ContactsTable({ contacts }: { contacts: Contact[] }) {
                   />
                 </td>
                 <td className="px-3 py-3.5">
-                  <Link
-                    href={`/contatos/${contact.id}`}
-                    className="font-medium text-sm hover:underline underline-offset-2"
-                    style={{ color: '#1A1A18' }}
-                  >
-                    {contact.name}
-                  </Link>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <Link
+                      href={`/contatos/${contact.id}`}
+                      className="font-medium text-sm hover:underline underline-offset-2"
+                      style={{ color: '#1A1A18' }}
+                    >
+                      {contact.name}
+                    </Link>
+                    {contact.flags?.map(f => {
+                      const flag = FLAGS_MAP[f as keyof typeof FLAGS_MAP]
+                      if (!flag) return null
+                      return (
+                        <span
+                          key={f}
+                          className="text-[10px] font-medium px-1.5 py-0.5 rounded-md whitespace-nowrap"
+                          style={{ backgroundColor: flag.bg, color: flag.color, border: `1px solid ${flag.border}` }}
+                        >
+                          {flag.label}
+                        </span>
+                      )
+                    })}
+                  </div>
                   {contact.phone && (
                     <div className="flex items-center gap-1.5 mt-0.5">
                       <p className="text-xs" style={{ color: '#AAAAAA' }}>{contact.phone}</p>

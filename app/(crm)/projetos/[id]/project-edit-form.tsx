@@ -30,6 +30,9 @@ export function ProjectEditForm({ project }: { project: Project }) {
     service: project.service ?? '',
     value: project.value ? String(project.value) : '',
     deadline: project.deadline ?? '',
+    start_date: project.start_date ?? '',
+    presentation_date: project.presentation_date ?? '',
+    delivery_date: project.delivery_date ?? '',
     notes: project.notes ?? '',
   })
 
@@ -59,6 +62,9 @@ export function ProjectEditForm({ project }: { project: Project }) {
         service: form.service || null,
         value: form.value ? parseFloat(form.value.replace(',', '.')) : null,
         deadline: form.deadline || null,
+        start_date: form.start_date || null,
+        presentation_date: form.presentation_date || null,
+        delivery_date: form.delivery_date || null,
         notes: form.notes || null,
       }),
     })
@@ -147,6 +153,47 @@ export function ProjectEditForm({ project }: { project: Project }) {
                 onFocus={onFocus}
                 onBlur={onBlur}
               />
+            </div>
+          </div>
+
+          <div className="pt-1" style={{ borderTop: '1px solid #F5F5F5' }}>
+            <p className="text-[10px] font-semibold uppercase mb-3 pt-2" style={{ color: '#CCCCCC', letterSpacing: '0.12em' }}>
+              Datas do fluxo
+            </p>
+            <div className="space-y-3">
+              <div className="space-y-1.5">
+                <label className="text-xs" style={{ color: '#AAAAAA' }}>Início</label>
+                <input
+                  type="date"
+                  value={form.start_date}
+                  onChange={e => set('start_date', e.target.value)}
+                  style={inputStyle}
+                  onFocus={onFocus}
+                  onBlur={onBlur}
+                />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-xs" style={{ color: '#AAAAAA' }}>Apresentação</label>
+                <input
+                  type="date"
+                  value={form.presentation_date}
+                  onChange={e => set('presentation_date', e.target.value)}
+                  style={inputStyle}
+                  onFocus={onFocus}
+                  onBlur={onBlur}
+                />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-xs" style={{ color: '#AAAAAA' }}>Entrega</label>
+                <input
+                  type="date"
+                  value={form.delivery_date}
+                  onChange={e => set('delivery_date', e.target.value)}
+                  style={inputStyle}
+                  onFocus={onFocus}
+                  onBlur={onBlur}
+                />
+              </div>
             </div>
           </div>
 
