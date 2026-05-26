@@ -23,7 +23,7 @@ export type ServiceType =
 
 export type LeadSource = 'instagram_ads' | 'whatsapp_direto' | 'indicacao' | 'outro'
 
-export type InteractionType = 'mensagem' | 'nota' | 'proposta' | 'reuniao' | 'email'
+export type InteractionType = 'mensagem' | 'nota' | 'proposta' | 'reuniao' | 'email' | 'vera'
 
 export interface Contact {
   id: string

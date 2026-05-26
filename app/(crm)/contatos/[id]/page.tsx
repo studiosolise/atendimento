@@ -99,12 +99,12 @@ export default async function ContatoPage({ params }: { params: Promise<{ id: st
             </div>
             <InteractionForm contactId={id} />
             <div>
-              {!interactions?.length ? (
+              {!interactions?.filter(i => i.type !== 'vera').length ? (
                 <p className="px-5 py-6 text-sm" style={{ color: '#AAAAAA' }}>
                   Nenhuma interação registrada.
                 </p>
               ) : (
-                interactions.map(item => (
+                interactions.filter(i => i.type !== 'vera').map(item => (
                   <div
                     key={item.id}
                     className="px-5 py-4"

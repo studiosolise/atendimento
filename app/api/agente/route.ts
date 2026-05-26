@@ -69,6 +69,11 @@ Retorne apenas o texto da mensagem sugerida, sem explicações, sem aspas, sem p
 
 type ActionType = 'primeiro_contato' | 'followup_proposta' | 'objecao' | 'encerrar' | 'livre'
 
+interface ChatMessage {
+  role: 'user' | 'assistant'
+  content: string
+}
+
 interface RequestBody {
   action: ActionType
   contact: {
@@ -84,6 +89,7 @@ interface RequestBody {
     created_at: string
   }>
   contexto?: string
+  chatHistory: ChatMessage[]
 }
 
 const ACTION_PROMPTS: Record<ActionType, string> = {
@@ -97,15 +103,18 @@ const ACTION_PROMPTS: Record<ActionType, string> = {
 export async function POST(req: NextRequest) {
   try {
     const body: RequestBody = await req.json()
-    const { action, contact, interactions, contexto } = body
+    const { action, contact, interactions, contexto, chatHistory } = body
 
     const interactionHistory = interactions.length > 0
-      ? interactions.slice(0, 10).map(i =>
-          `[${i.type.toUpperCase()} - ${new Date(i.created_at).toLocaleDateString('pt-BR')}]\n${i.content}`
-        ).join('\n\n')
+      ? interactions
+          .filter(i => i.type !== 'vera')
+          .slice(0, 10)
+          .map(i =>
+            `[${i.type.toUpperCase()} - ${new Date(i.created_at).toLocaleDateString('pt-BR')}]\n${i.content}`
+          ).join('\n\n')
       : 'Nenhuma interação registrada ainda.'
 
-    const userMessage = `## Perfil do contato
+    const profileBlock = `## Perfil do contato
 Nome: ${contact.name}
 ${contact.company ? `Empresa: ${contact.company}` : ''}
 Serviço de interesse: ${contact.service ?? 'não informado'}
@@ -113,17 +122,22 @@ Status atual no funil: ${contact.status}
 ${contact.notes ? `Observações: ${contact.notes}` : ''}
 
 ## Histórico de interações (mais recentes primeiro)
-${interactionHistory}
+${interactionHistory}`
 
-## Ação solicitada
+    const currentUserMessage = `${chatHistory.length === 0 ? profileBlock + '\n\n' : ''}## Ação solicitada
 ${ACTION_PROMPTS[action]}
 ${contexto ? `\nContexto adicional: ${contexto}` : ''}`
+
+    const messages: ChatMessage[] = [
+      ...chatHistory,
+      { role: 'user', content: currentUserMessage },
+    ]
 
     const message = await client.messages.create({
       model: 'claude-sonnet-4-6',
       max_tokens: 500,
       system: SYSTEM_PROMPT,
-      messages: [{ role: 'user', content: userMessage }],
+      messages,
     })
 
     const text = message.content[0].type === 'text' ? message.content[0].text : ''
