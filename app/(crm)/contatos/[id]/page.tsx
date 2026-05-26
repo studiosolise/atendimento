@@ -10,24 +10,15 @@ function toWhatsAppUrl(phone: string): string {
 }
 import { StatusDropdown } from './status-dropdown'
 import { SERVICE_LABELS } from '@/lib/constants'
-import { Contact, Interaction } from '@/types'
+import { Contact } from '@/types'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { InteractionForm } from './interaction-form'
 import { EditContactForm } from './edit-contact-form'
 import { AgentePanel } from './agente-panel'
 import { FollowupsPanel } from './followups-panel'
 import { ProjectsPanel } from './projects-panel'
 import { FlagsPanel } from './flags-panel'
 import { Followup } from '@/types'
-
-const INTERACTION_LABELS: Record<string, string> = {
-  mensagem: 'Mensagem',
-  nota: 'Nota',
-  proposta: 'Proposta',
-  reuniao: 'Reunião',
-  email: 'E-mail',
-}
 
 export default async function ContatoPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -40,12 +31,6 @@ export default async function ContatoPage({ params }: { params: Promise<{ id: st
     .single() as { data: Contact | null }
 
   if (!contact) notFound()
-
-  const { data: interactions } = await supabase
-    .from('interactions')
-    .select('*')
-    .eq('contact_id', id)
-    .order('created_at', { ascending: false }) as { data: Interaction[] | null }
 
   const { data: followups } = await supabase
     .from('followups')
@@ -86,53 +71,9 @@ export default async function ContatoPage({ params }: { params: Promise<{ id: st
         <AgentePanel contact={contact} />
       </div>
 
-      {/* 2 colunas: histórico | dados */}
+      {/* 2 colunas: dados | painéis */}
       <div className="grid grid-cols-3 gap-5">
-        {/* Histórico */}
-        <div className="col-span-2 space-y-4">
-          <div
-            className="rounded-xl overflow-hidden"
-            style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E5E8' }}
-          >
-            <div className="px-5 py-4" style={{ borderBottom: '1px solid #F0F0F0' }}>
-              <p className="text-sm font-semibold" style={{ color: '#1A1A18' }}>Histórico</p>
-            </div>
-            <InteractionForm contactId={id} />
-            <div>
-              {!interactions?.filter(i => i.type !== 'vera').length ? (
-                <p className="px-5 py-6 text-sm" style={{ color: '#AAAAAA' }}>
-                  Nenhuma interação registrada.
-                </p>
-              ) : (
-                interactions.filter(i => i.type !== 'vera').map(item => (
-                  <div
-                    key={item.id}
-                    className="px-5 py-4"
-                    style={{ borderBottom: '1px solid #F5F5F5' }}
-                  >
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <span
-                        className="text-[11px] font-medium px-2 py-0.5 rounded"
-                        style={{ backgroundColor: '#F1F1F3', color: '#888888' }}
-                      >
-                        {INTERACTION_LABELS[item.type] ?? item.type}
-                      </span>
-                      <span className="text-xs" style={{ color: '#CCCCCC' }}>
-                        {format(new Date(item.created_at), "d 'de' MMM, HH:mm", { locale: ptBR })}
-                      </span>
-                    </div>
-                    <p className="text-sm whitespace-pre-wrap leading-relaxed" style={{ color: '#444444' }}>
-                      {item.content}
-                    </p>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Dados + painéis */}
-        <div className="space-y-3">
+        <div className="col-span-3 md:col-span-1 space-y-3">
           {/* Dados do contato */}
           <div
             className="p-5 space-y-3 rounded-xl"

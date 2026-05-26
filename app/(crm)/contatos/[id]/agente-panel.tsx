@@ -131,14 +131,16 @@ export function AgentePanel({ contact }: Props) {
       setChatHistory(updatedHistory)
       setProfileSent(true)
 
-      await supabase.from('interactions').insert({
+      const { error: insertError } = await supabase.from('interactions').insert({
         contact_id: contact.id,
         type: 'vera',
         content: JSON.stringify({ userText: userLabel, veraText }),
       })
+      if (insertError) console.error('[vera save]', insertError)
 
       setContexto('')
-    } catch {
+    } catch (err) {
+      console.error('[vera gerar]', err)
       const errorEntry: ChatEntry = {
         userText: userLabel,
         veraText: 'Erro ao conectar com o agente.',
