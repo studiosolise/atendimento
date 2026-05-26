@@ -83,7 +83,7 @@ export default async function ContatoPage({ params }: { params: Promise<{ id: st
 
       {/* VERA — hero panel */}
       <div className="mb-6">
-        <AgentePanel contact={contact} interactions={interactions ?? []} />
+        <AgentePanel contact={contact} />
       </div>
 
       {/* 2 colunas: histórico | dados */}

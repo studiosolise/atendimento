@@ -29,7 +29,6 @@ interface ChatEntry {
 
 interface Props {
   contact: Contact
-  interactions: Interaction[]
 }
 
 function restoreFromInteractions(interactions: Interaction[]): {
@@ -60,17 +59,36 @@ function restoreFromInteractions(interactions: Interaction[]): {
   return { entries, history }
 }
 
-export function AgentePanel({ contact, interactions }: Props) {
+export function AgentePanel({ contact }: Props) {
   const [action, setAction] = useState<ActionType>('primeiro_contato')
   const [contexto, setContexto] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const [chatEntries, setChatEntries] = useState<ChatEntry[]>(() => restoreFromInteractions(interactions).entries)
-  const [chatHistory, setChatHistory] = useState<ChatMessage[]>(() => restoreFromInteractions(interactions).history)
-  const [profileSent, setProfileSent] = useState<boolean>(() => restoreFromInteractions(interactions).entries.length > 0)
+  const [chatEntries, setChatEntries] = useState<ChatEntry[]>([])
+  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([])
+  const [profileSent, setProfileSent] = useState(false)
+  const [allInteractions, setAllInteractions] = useState<Interaction[]>([])
 
   const supabase = createClient()
   const bottomRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    async function loadHistory() {
+      const { data } = await supabase
+        .from('interactions')
+        .select('*')
+        .eq('contact_id', contact.id)
+        .order('created_at', { ascending: false })
+      if (data) {
+        setAllInteractions(data)
+        const { entries, history } = restoreFromInteractions(data)
+        setChatEntries(entries)
+        setChatHistory(history)
+        setProfileSent(entries.length > 0)
+      }
+    }
+    loadHistory()
+  }, [contact.id])
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -96,7 +114,7 @@ export function AgentePanel({ contact, interactions }: Props) {
             notes: contact.notes,
             company: contact.company,
           },
-          interactions,
+          interactions: allInteractions,
           contexto: texto || undefined,
           chatHistory,
         }),
